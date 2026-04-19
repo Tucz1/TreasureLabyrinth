@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour
 
     public static UIController I { get; private set; }
 
+    private Minimap m_minimap;
     public void Toggle(bool value) 
     {
         gameObject.SetActive(value);
@@ -36,6 +37,8 @@ public class UIController : MonoBehaviour
         }
         I = this;
         DontDestroyOnLoad(this);
+
+        m_minimap = GetComponent<Minimap>();
 
         Map.OnMapChanged += MapChanged;
 
@@ -78,7 +81,7 @@ public class UIController : MonoBehaviour
     }  
     private void MapChanged(Texture2D tex) 
     {
-        Debug.Log("Map Changed");
+        m_minimap.MapChanged(tex);
     }
     private void ArtifactAdded(ArtifactData data) 
     {

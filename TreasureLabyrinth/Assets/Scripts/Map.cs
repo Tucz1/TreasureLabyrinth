@@ -76,12 +76,13 @@ public class Map : MonoBehaviour
         }
 
         LoadFromTexture(mapTextures[0].levelTexture);
-        OnMapChanged?.Invoke(mapTextures[0].levelTexture);
     }
 
     void Start()
     {
         RefreshVisuals();
+
+        OnMapChanged?.Invoke(mapTextures[0].levelTexture);
     }
 
     public void RefreshVisuals()
