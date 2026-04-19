@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-100)]
 public class UIController : MonoBehaviour
 {
     [Header("Toggle")]
@@ -36,6 +37,8 @@ public class UIController : MonoBehaviour
         I = this;
         DontDestroyOnLoad(this);
 
+        Map.OnMapChanged += MapChanged;
+
         m_windowToggle.OnValueChanged += UIEvents.WindowToggleChanged;
         m_autorunToggle.OnValueChanged += UIEvents.AutorunToggleChanged;
         m_crtFilerToggle.OnValueChanged += UIEvents.AutorunToggleChanged;
@@ -59,6 +62,8 @@ public class UIController : MonoBehaviour
         }
         I = null;
 
+        Map.OnMapChanged -= MapChanged;
+
         m_windowToggle.OnValueChanged -= UIEvents.WindowToggleChanged;
         m_autorunToggle.OnValueChanged -= UIEvents.AutorunToggleChanged;
         m_crtFilerToggle.OnValueChanged -= UIEvents.AutorunToggleChanged;
@@ -71,6 +76,10 @@ public class UIController : MonoBehaviour
 
         UIEvents.OnArtifactAdded -= ArtifactAdded;
     }  
+    private void MapChanged(Texture2D tex) 
+    {
+        Debug.Log("Map Changed");
+    }
     private void ArtifactAdded(ArtifactData data) 
     {
         ArtifactDisplay a = Instantiate(m_artifactDisplayPrefab, m_artifactAnchor);
