@@ -96,10 +96,10 @@ public class Map : MonoBehaviour
                 Instantiate(wallTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
             }
 
-            if (dictonary.Value.tileType == TileType.Floor)
-            {
-                Instantiate(floorTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
-            }
+            // if (dictonary.Value.tileType == TileType.Floor)
+            // {
+            //     Instantiate(floorTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
+            // }
 
             if (dictonary.Value.tileType == TileType.PlayerSpawn)
             {
