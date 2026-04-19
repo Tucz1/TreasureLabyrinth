@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-4025692868834958596
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MusicBus
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: fc3903a9adbbf1e469dcc6762553089b
+  m_Children: []
+  m_Volume: 8548ffc722c3df440aad14de2fbd3374
+  m_Pitch: cb3c43f014549d740ae58380a6bbe55a
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 4138206169881314208}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -15,10 +34,16 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 8548ffc722c3df440aad14de2fbd3374
+    name: MusicVolume
+  - guid: cc48b83d3c29a314bae1b979540f3020
+    name: SfxVolume
   m_AudioMixerGroupViews:
   - guids:
     - a24dd57ca8ab97742bb461a80623dd66
+    - fc3903a9adbbf1e469dcc6762553089b
+    - 23e540ad90e73d94d90423dae701e131
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -31,7 +56,9 @@ AudioMixerGroupController:
   m_Name: Master
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: a24dd57ca8ab97742bb461a80623dd66
-  m_Children: []
+  m_Children:
+  - {fileID: 7091870490449066055}
+  - {fileID: -4025692868834958596}
   m_Volume: d6a4014e40f6f2c4998cd12c4a33833e
   m_Pitch: 39285f25e4f7b91488d79fe35fcf7cad
   m_Send: 00000000000000000000000000000000
@@ -66,3 +93,50 @@ AudioMixerSnapshotController:
   m_SnapshotID: 5e83bc9de6bc1ad4aa18e3e9cb6539a0
   m_FloatValues: {}
   m_TransitionOverrides: {}
+--- !u!244 &4138206169881314208
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 600ab5df0c0ca5546b2323926d3cb52b
+  m_EffectName: Attenuation
+  m_MixLevel: 01aed185431c7024aa46b5e49e621de9
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &5170850897587982696
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 6d6881afc401eeb4c9ff9fb12772e050
+  m_EffectName: Attenuation
+  m_MixLevel: d9d68210e1824144ea3fad0ff87c9139
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &7091870490449066055
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SfxBus
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 23e540ad90e73d94d90423dae701e131
+  m_Children: []
+  m_Volume: cc48b83d3c29a314bae1b979540f3020
+  m_Pitch: 59b8e1a8cc3208743a600e53132c2c32
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 5170850897587982696}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
