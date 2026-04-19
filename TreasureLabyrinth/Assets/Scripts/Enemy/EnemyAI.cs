@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DefaultExecutionOrder (100)]
@@ -9,32 +10,74 @@ public class EnemyAI : MonoBehaviour {
     //public Vector2Int goalPos;
     public Vector2Int pingPos;
     public Vector2Int patrolPos;
+    public Vector2Int goalPos;
     public List<Vector2Int> path;
 
-    bool alert = false;
+    bool playerVisible = false;
     bool pinged = false;
+    bool patrollingToLPos = false;
     float movespeed = 1f;
     float timer = 0f;
     float tick = 1f;
 
+    public List<Vector2Int> patrolPointList;
+
     public GridMovement player;
     //Vector2Int playerPos;
-
+    [SerializeField] private EnemyState currentState;
+    private enum EnemyState {
+        patrollingToPoint,
+        patrollingToPlayer,
+        pinged,
+        alert
+    }
     private void Start() {
 
         transform.position = new Vector3(enemyCurrentGridPos.x, enemyCurrentGridPos.y, 0);
         StartCoroutine(think());
+        currentState = EnemyState.patrollingToPoint;
     }
 
     private void chasePlayer() {
     }
 
-    private Vector2Int generateGoalPos() {
+    private Vector2Int generateGoalPos(Vector2Int ?goalPosInfo) {
         var goalPos = Vector2Int.zero;
-        //if (alert) goalPos
-        if (pinged) goalPos = pingPos;
-        //Random patrolpoint -> Player -> Random patrolpoint -> Player
+
+        //PING LOCATION AS GOAL
+        //if (pinged) goalPos = pingPos;
+
+        //PREV POSITION AS GOAL
+        if (currentState == EnemyState.patrollingToPlayer) {
+        var lastPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
+            if (patrollingToLPos) {
+                goalPos = (Vector2Int)goalPosInfo;
+                Debug.Log("We're still going to the old position yippee");
+            }
+            else goalPos = lastPos;
+        }
+        
+        //CURRENT POSITION AS GOAL
+        if (currentState == EnemyState.alert) {
         goalPos = new Vector2Int(player.currentGridPos.x,player.currentGridPos.y);
+        }
+
+        //RANDOM PATROL POINT AS GOAL
+        if (currentState == EnemyState.patrollingToPoint) {
+            if (patrolPointList.Count < 1) {
+                Debug.Log("Missing PatrolPointList, giving player location");
+                goalPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
+            }
+
+            else {
+                Debug.Log("We shouldn't be here yet");
+                int rndNum = Random.Range(0, patrolPointList.Count);
+                goalPos = patrolPointList[rndNum];
+            }
+        }
+        else
+            Debug.Log($"Weird state situation: {currentState} , giving player pos.");
+            goalPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
         return goalPos;
     }
 
@@ -63,7 +106,8 @@ public class EnemyAI : MonoBehaviour {
     IEnumerator think() {
         while (true) {
             if (path == null || path.Count == 0) {
-                var destination = generateGoalPos();
+                StartCoroutine(stateCheck());
+                var destination = generateGoalPos(goalPos);
                 path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
                 print("made new path");
             }
@@ -71,6 +115,38 @@ public class EnemyAI : MonoBehaviour {
             path.RemoveAt(0);
             yield return MoveStep(next);
         }
+    }
+    IEnumerator stateCheck() {
+        var prevState = currentState;
+        switch (prevState) {
+            case EnemyState.patrollingToPoint:
+                    currentState = EnemyState.patrollingToPlayer;
+                    patrollingToLPos = true;
+                break;
+            case EnemyState.patrollingToPlayer:
+                    currentState = EnemyState.patrollingToPoint;
+                    patrollingToLPos = false;   
+                break;
+            case EnemyState.pinged:
+                currentState = EnemyState.patrollingToPlayer;
+                break;
+            case EnemyState.alert:
+                //Can we still see the player? if not return to patrol
+                if (!playerVisible)
+                    currentState = EnemyState.patrollingToPoint;
+                break;
+            default:
+                currentState = prevState;
+                Debug.Log("We ended up at default state, shouldn't happen.");
+                break;
+        }
+        //if (currentState == EnemyState.alert) {
+        //    //Can we still see the player? if not return to patrol
+        //}
+        //if (prevState == EnemyState.pinged) currentState = EnemyState.patrollingToPlayer;
+        //if (prevState == EnemyState.patrollingToPoint) currentState = EnemyState.patrollingToPlayer;
+        //if (prevState == EnemyState.patrollingToPlayer) currentState = EnemyState.patrollingToPoint;
+        yield return currentState;
     }
     //IEnumerator MoveStep(Vector2Int target) {
     //    var analogTarget = (Vector3)(Vector2)target;
