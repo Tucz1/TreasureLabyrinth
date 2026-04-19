@@ -60,7 +60,7 @@ public class GridMovement : MonoBehaviour
     {
         isMoving = true;
 
-        Vector3 targetWorldPos = new Vector3(targetGridPos.x, targetGridPos.y, -1f);
+        Vector3 targetWorldPos = new Vector3(targetGridPos.x, targetGridPos.y, 0f);
 
         while (Vector3.Distance(transform.position, targetWorldPos) > 0.01f)
         {
