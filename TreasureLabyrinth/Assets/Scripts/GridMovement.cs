@@ -7,13 +7,21 @@ public class GridMovement : MonoBehaviour
     private bool isMoving;
     [SerializeField] float moveSpeed = 1f;
     public Vector2Int currentGridPos;
+    PositionPlayer positionPlayer;
 
     void Awake()
     {
         map = FindAnyObjectByType<Map>();
 
-        transform.position = new Vector3(currentGridPos.x, currentGridPos.y, -1f);
     }
+
+    void Start()
+    {
+        positionPlayer = FindAnyObjectByType<PositionPlayer>();
+        currentGridPos = (Vector2Int)Vector3Int.RoundToInt(positionPlayer.transform.position);
+    }
+
+
     void Update()
     {
         if (isMoving) return;
@@ -30,8 +38,16 @@ public class GridMovement : MonoBehaviour
             Vector2Int targetGridPos = currentGridPos + direction;
 
             Node targetNode = map.data[targetGridPos];
+            bool CheckForWalkability()
+            {
+                return (targetNode.tileType == TileType.Floor) || 
+                        targetNode.tileType == TileType.ArtifactSpawn ||
+                        targetNode.tileType == TileType.PlayerSpawn ||
+                        targetNode.tileType == TileType.EnemySpawn ||
+                        targetNode.tileType == TileType.Exit;
+            }
 
-            if (targetNode != null && targetNode.tileType == TileType.Floor)
+            if (targetNode != null && CheckForWalkability())
             {
                 currentGridPos = targetGridPos;
                 StartCoroutine(SmoothMove(targetGridPos));

@@ -8,22 +8,17 @@ public enum TileType
     None,
     Wall,
     Floor,
-
-}
-
-public enum ColorRole
-{
-    Wall,
-    Floor,
     PlayerSpawn,
     EnemySpawn,
     ArtifactSpawn,
     Exit,
+
 }
 
 public class Node
 {
     public TileType tileType;
+
 
     public Node(TileType tileType)
     {
@@ -52,8 +47,12 @@ public class Map : MonoBehaviour
     private int mapSizeX;
     private int mapSizeY;
 
-    public GameObject testWall;
-    public GameObject testFloor;
+    public GameObject wallTile;
+    public GameObject floorTile;
+    public GameObject playerSpawnTile;
+    public GameObject enemySpawnTile;
+    public GameObject artifactSpawnTile;
+    public GameObject exitTileSpawn;
     public Transform levelVisuals;
 
     public Texture2D testingTex;
@@ -67,31 +66,50 @@ public class Map : MonoBehaviour
         {
             mapDataColors.Add(mapColors[i].colorRole, mapColors[i].color);
         }
+
+        LoadFromTexture(testingTex);
     }
 
     void Start()
     {
-
-        LoadFromTexture(testingTex);
         RefreshVisuals();
     }
 
     public void RefreshVisuals()
     {
-        // Kill previous visuals????
+        // Kill previous visuals
 
-        foreach (var thing in data)
+        foreach (var dictonary in data)
         {
-            // GameObject prefab;
 
-            if (thing.Value.tileType == TileType.Wall)
+            if (dictonary.Value.tileType == TileType.Wall)
             {
-                Instantiate(testWall, new Vector3(thing.Key.x, thing.Key.y, 0), Quaternion.identity, levelVisuals);
+                Instantiate(wallTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
             }
 
-            if (thing.Value.tileType == TileType.Floor)
+            if (dictonary.Value.tileType == TileType.Floor)
             {
-                Instantiate(testFloor, new Vector3(thing.Key.x, thing.Key.y, 0), Quaternion.identity, levelVisuals);
+                Instantiate(floorTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
+            }
+
+            if (dictonary.Value.tileType == TileType.PlayerSpawn)
+            {
+                Instantiate(playerSpawnTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
+            }
+
+            if (dictonary.Value.tileType == TileType.EnemySpawn)
+            {
+                Instantiate(enemySpawnTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
+            }
+            
+            if (dictonary.Value.tileType == TileType.ArtifactSpawn)
+            {
+                Instantiate(artifactSpawnTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
+            }
+
+            if (dictonary.Value.tileType == TileType.Exit)
+            {
+                Instantiate(exitTileSpawn, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
             }
         }
     }
@@ -119,14 +137,31 @@ public class Map : MonoBehaviour
                             Mathf.Abs(c1.b - c2.b) < threshold;
                 }
                 
-                if (IsCloseEnough(pixel, mapDataColors["Floor"], colorThreshold))
+                if (IsCloseEnough(pixel, mapDataColors["Wall"], colorThreshold))
                 {
                     // dodo
+                    tileType = TileType.Wall;
+                }
+                else if (IsCloseEnough(pixel, mapDataColors["Floor"], colorThreshold))
+                {
                     tileType = TileType.Floor;
                 }
-                else if (IsCloseEnough(pixel, mapDataColors["Wall"], colorThreshold))
+                else if (IsCloseEnough(pixel, mapDataColors["PlayerSpawn"], colorThreshold))
                 {
-                    tileType = TileType.Wall;
+                    // Spawn player & change tile
+                    tileType = TileType.PlayerSpawn;
+                }
+                else if (IsCloseEnough(pixel, mapDataColors["EnemySpawn"], colorThreshold))
+                {
+                    tileType = TileType.EnemySpawn;
+                }
+                else if (IsCloseEnough(pixel, mapDataColors["ArtifactSpawn"], colorThreshold))
+                {
+                    tileType = TileType.ArtifactSpawn;
+                }
+                else if (IsCloseEnough(pixel, mapDataColors["Exit"], colorThreshold))
+                {
+                    tileType = TileType.Exit;
                 }
 
 

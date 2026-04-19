@@ -473,10 +473,22 @@ MonoBehaviour:
   - colorRole: EnemySpawn
     color:
       serializedVersion: 2
-      rgba: 0
-  colorThreshold: 20
-  testWall: {fileID: 2947158783104837595, guid: 150915af1d4674a42849f0be66218594, type: 3}
-  testFloor: {fileID: 7675512821729473235, guid: 2d12788c82fc5a04bb6557674846071f, type: 3}
+      rgba: 255
+  - colorRole: ArtifactSpawn
+    color:
+      serializedVersion: 2
+      rgba: 65535
+  - colorRole: Exit
+    color:
+      serializedVersion: 2
+      rgba: 16711680
+  colorThreshold: 5
+  wallTile: {fileID: 7474312558060612879, guid: a4a9992117032ae4ba36e725d1567ae1, type: 3}
+  floorTile: {fileID: 7281986721646849317, guid: abd0e9cc958a91f44b680253cfb385bc, type: 3}
+  playerSpawnTile: {fileID: 3133553181664091652, guid: 7fa1d318a8b687c4a89f34ab19158d91, type: 3}
+  enemySpawnTile: {fileID: 5430596677280578767, guid: 61f5331d70c76544a81078d3fe7e85c8, type: 3}
+  artifactSpawnTile: {fileID: 342276002565328648, guid: c0da3927945c0794caa01d0ab5a84cd5, type: 3}
+  exitTileSpawn: {fileID: 8709671499254721854, guid: f79c47fe9260f5948b6939cd6958fe81, type: 3}
   levelVisuals: {fileID: 309619716}
   testingTex: {fileID: 2800000, guid: 88ffdc62f80cf914083566e43371e6f8, type: 3}
 --- !u!4 &945907069
@@ -873,7 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveSpeed: 6
-  currentGridPos: {x: 9, y: 4}
+  currentGridPos: {x: 8, y: 4}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
