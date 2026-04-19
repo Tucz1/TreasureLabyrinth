@@ -458,26 +458,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Map
   mapColors:
-  - colorRole: 0
-    color:
-      serializedVersion: 2
-      rgba: 0
-  - colorRole: 1
+  - colorRole: Floor
     color:
       serializedVersion: 2
       rgba: 16777215
-  - colorRole: 2
+  - colorRole: Wall
+    color:
+      serializedVersion: 2
+      rgba: 0
+  - colorRole: PlayerSpawn
     color:
       serializedVersion: 2
       rgba: 65280
-  - colorRole: 3
+  - colorRole: EnemySpawn
     color:
       serializedVersion: 2
-      rgba: 255
-  - colorRole: 4
-    color:
-      serializedVersion: 2
-      rgba: 16711680
+      rgba: 0
+  colorThreshold: 20
   testWall: {fileID: 2947158783104837595, guid: 150915af1d4674a42849f0be66218594, type: 3}
   testFloor: {fileID: 7675512821729473235, guid: 2d12788c82fc5a04bb6557674846071f, type: 3}
   levelVisuals: {fileID: 309619716}
