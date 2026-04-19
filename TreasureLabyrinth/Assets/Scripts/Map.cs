@@ -31,7 +31,12 @@ public class MapDataColors
 {
     public string colorRole;
     public Color32 color;
-
+}
+[Serializable]
+public class MapTextureSet 
+{
+    public Texture2D mapTexture;
+    public Texture2D levelTexture;
 }
 
 public class Map : MonoBehaviour
@@ -59,6 +64,7 @@ public class Map : MonoBehaviour
 
     public static event Action<Texture2D> OnMapChanged;
 
+    public List<MapTextureSet> mapTextures;
 
     void Awake()
     {
@@ -69,7 +75,8 @@ public class Map : MonoBehaviour
             mapDataColors.Add(mapColors[i].colorRole, mapColors[i].color);
         }
 
-        LoadFromTexture(testingTex);
+        LoadFromTexture(mapTextures[0].levelTexture);
+        OnMapChanged?.Invoke(mapTextures[0].levelTexture);
     }
 
     void Start()
@@ -118,7 +125,6 @@ public class Map : MonoBehaviour
 
     public void LoadFromTexture(Texture2D tex)
     {
-        OnMapChanged?.Invoke(tex);
 
         data = new Dictionary<Vector2Int, Node>();
 
