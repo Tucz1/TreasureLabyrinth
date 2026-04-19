@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour {
     public Vector2Int enemyCurrentGridPos;
     //public Vector2Int goalPos;
     public Vector2Int pingPos;
+    public Vector2Int patrolPos;
     public List<Vector2Int> path;
 
     bool alert = false;
@@ -32,7 +33,7 @@ public class EnemyAI : MonoBehaviour {
         var goalPos = Vector2Int.zero;
         //if (alert) goalPos
         if (pinged) goalPos = pingPos;
-
+        //Random patrolpoint -> Player -> Random patrolpoint -> Player
         goalPos = new Vector2Int(player.currentGridPos.x,player.currentGridPos.y);
         return goalPos;
     }
