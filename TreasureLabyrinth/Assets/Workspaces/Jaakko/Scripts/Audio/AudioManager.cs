@@ -5,6 +5,9 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager I {get;private set;}
+    [Header("Sources")]
+    [SerializeField] private AudioSource m_musicSource;
+    [SerializeField] private AudioSource m_sfxSource;
 
     [Header("Mixer")]
     [SerializeField] private AudioMixer m_mainMixer;
