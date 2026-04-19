@@ -9,6 +9,16 @@ public enum TileType
 
 }
 
+public enum ColorRole
+{
+    Wall,
+    Floor,
+    PlayerSpawn,
+    EnemySpawn,
+    ArtifactSpawn,
+    Exit,
+}
+
 public class Node
 {
     public TileType tileType;
@@ -19,14 +29,22 @@ public class Node
     }
 }
 
+[System.Serializable]
+public class MapDataColors
+{
+    public ColorRole colorRole;
+    public Color32 color;
+}
+
 public class Map : MonoBehaviour
 {
-    public List<Vector2Int> testingWalls;
 
     public Dictionary<Vector2Int, Node> data;
 
-    public int mapSizeX = 10;
-    public int mapSizeY = 10;
+    public MapDataColors[] mapColors;
+
+    private int mapSizeX;
+    private int mapSizeY;
 
     public GameObject testWall;
     public GameObject testFloor;
@@ -34,27 +52,9 @@ public class Map : MonoBehaviour
     
     public Texture2D testingTex;
 
-    public void LoadDummyMap()
-    {
-        data = new Dictionary<Vector2Int, Node>();
-
-        for (int i = 0; i < mapSizeX; i++)
-        {
-            for (int j = 0; j < mapSizeY; j++)
-            {
-                data.Add(new Vector2Int(i, j), new Node(TileType.Floor));
-            }
-        }
-
-        foreach (var wall in testingWalls)
-        {
-            data[wall].tileType = TileType.Wall;
-        }
-    }
-
+    
     void Start()
     {
-        //LoadDummyMap();
         LoadFromTexture(testingTex);
         RefreshVisuals();
     }
