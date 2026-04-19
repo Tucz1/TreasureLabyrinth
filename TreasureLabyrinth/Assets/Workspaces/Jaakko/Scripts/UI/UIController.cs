@@ -1,5 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+public enum UIPanelType 
+{
+    Pause,
+    HUD
+}
 
 [DefaultExecutionOrder(-100)]
 public class UIController : MonoBehaviour
@@ -50,10 +56,14 @@ public class UIController : MonoBehaviour
         m_sfxSlider.onValueChanged.AddListener(UIEvents.SfxVolumeChanged);
         m_brightnessSlider.onValueChanged.AddListener(UIEvents.BrighnessValueChanged);
 
+        InputEvents.OnUIInputAction += UIInput;
+
         m_resumeButton.onClick.AddListener(() =>
         {
             Toggle(false);
         });
+        Toggle(false);
+
 
         UIEvents.OnArtifactAdded += ArtifactAdded;
     }
@@ -77,8 +87,17 @@ public class UIController : MonoBehaviour
 
         m_resumeButton.onClick.RemoveAllListeners();
 
+        InputEvents.OnUIInputAction -= UIInput;
+
         UIEvents.OnArtifactAdded -= ArtifactAdded;
     }  
+    private void UIInput(UIInputAction action) 
+    {
+        if (action == UIInputAction.Pause) 
+        {
+            Toggle(true);
+        }
+    }
     private void MapChanged(Texture2D tex) 
     {
         m_minimap.MapChanged(tex);

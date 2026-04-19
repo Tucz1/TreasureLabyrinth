@@ -1,0 +1,70 @@
+using System;
+using UnityEngine;
+public enum UIInputAction 
+{
+    Pause,
+
+}
+public enum PlayerInputAction 
+{
+    Pulse,
+
+}
+public static class InputEvents 
+{
+    public static event Action<UIInputAction> OnUIInputAction;
+    public static event Action<PlayerInputAction> OnInputAction;  
+
+    public static void UIInputAction(UIInputAction action) 
+    {
+        OnUIInputAction?.Invoke(action);
+    }
+    public static void InputAction(PlayerInputAction action) 
+    {
+        OnInputAction?.Invoke(action);
+    }
+}
+
+public class InputManager : MonoBehaviour
+{
+    public static InputManager I {  get; private set; }
+
+    private InputSystem_Actions m_actions;
+
+    public InputSystem_Actions Actions => m_actions;
+
+    private void Awake()
+    {
+        if (I != null) 
+        {
+            Destroy(gameObject);
+            return;
+        }
+        I = this;
+        DontDestroyOnLoad(this);
+
+        m_actions = new InputSystem_Actions();
+        m_actions.Enable();
+
+        // this is bad and leaks :)
+        m_actions.UI.OpenMenu.performed += ctx =>
+        {
+            InputEvents.UIInputAction(UIInputAction.Pause);
+        };
+        m_actions.Player.Pulse.performed += ctx =>
+        {
+            InputEvents.InputAction(PlayerInputAction.Pulse);
+        };
+    }
+    private void OnDestroy()
+    {
+        if (I != this) 
+        {
+            return;
+        }
+        m_actions.Disable();
+        m_actions.Dispose();
+
+        I = null;
+    }
+}
