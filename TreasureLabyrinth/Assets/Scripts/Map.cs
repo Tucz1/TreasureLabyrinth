@@ -57,6 +57,8 @@ public class Map : MonoBehaviour
 
     public Texture2D testingTex;
 
+    public static event Action<Texture2D> OnMapChanged;
+
 
     void Awake()
     {
@@ -116,6 +118,8 @@ public class Map : MonoBehaviour
 
     public void LoadFromTexture(Texture2D tex)
     {
+        OnMapChanged?.Invoke(tex);
+
         data = new Dictionary<Vector2Int, Node>();
 
         mapSizeX = tex.width;
