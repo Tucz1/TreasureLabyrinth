@@ -24,6 +24,6 @@ public class ArtifactDisplay : MonoBehaviour
             return;
         }
         m_image.sprite = data.image;
-        m_text.text = data.name;
+        m_text.text = data.name.ToUpper();
     }
 }

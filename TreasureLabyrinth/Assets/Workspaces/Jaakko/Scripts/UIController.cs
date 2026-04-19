@@ -42,6 +42,7 @@ public class UIController : MonoBehaviour
 
         m_musicSlider.onValueChanged.AddListener(UIEvents.MusicVolumeChanged);
         m_sfxSlider.onValueChanged.AddListener(UIEvents.SfxVolumeChanged);
+        m_brightnessSlider.onValueChanged.AddListener(UIEvents.BrighnessValueChanged);
 
         m_resumeButton.onClick.AddListener(() =>
         {
@@ -64,6 +65,7 @@ public class UIController : MonoBehaviour
 
         m_musicSlider.onValueChanged.RemoveAllListeners();
         m_sfxSlider.onValueChanged.RemoveAllListeners();
+        m_brightnessSlider.onValueChanged.RemoveAllListeners();
 
         m_resumeButton.onClick.RemoveAllListeners();
 
