@@ -6,7 +6,7 @@ public class GridMovement : MonoBehaviour
     Map map;
     private bool isMoving;
     [SerializeField] float moveSpeed = 1f;
-    public Vector2Int currentGridPos;
+    private Vector2Int currentGridPos;
     PositionPlayer positionPlayer;
 
     void Awake()
