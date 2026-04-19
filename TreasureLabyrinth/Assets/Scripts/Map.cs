@@ -35,8 +35,8 @@ public class MapDataColors
 [Serializable]
 public class MapTextureSet 
 {
-    public Texture2D mapTexture;
     public Texture2D levelTexture;
+    public Texture2D mapTexture;
 }
 
 public class Map : MonoBehaviour
