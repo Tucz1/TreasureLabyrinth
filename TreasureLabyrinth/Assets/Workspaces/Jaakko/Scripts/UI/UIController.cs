@@ -395,6 +395,7 @@ public class UIController : MonoBehaviour
     public void GameEnded(bool won) 
     {
         if (m_gameOver) return;
+
         UIEvents.GameOver();
 
         m_gameOver = true;

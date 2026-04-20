@@ -38,7 +38,7 @@ public class GridMovement : MonoBehaviour
 
     private void GameOver() 
     {
-        enabled = false;
+        gameObject.SetActive(false);
     }
     void Update()
     {
