@@ -20,8 +20,16 @@ public class GridMovement : MonoBehaviour
     public AudioClip unLocked;
     PlayerInventory playerInventory;
 
+    private Animator animator;
+
+    private const string horizontal = "Horizontal";
+    private const string vertical = "Vertical";
+    private const string lastHorizontal = "LastHorizontal";
+    private const string lastVertical = "LastVertical";
+
     void Awake()
     {
+        animator = GetComponent<Animator>();
         map = FindAnyObjectByType<Map>();
         myAudio = GetComponent<AudioSource>();
 
@@ -58,7 +66,7 @@ public class GridMovement : MonoBehaviour
             Node targetNode = map.data[targetGridPos];
             bool CheckForWalkability()
             {
-                return (targetNode.tileType == TileType.Floor) || 
+                return (targetNode.tileType == TileType.Floor) ||
                         targetNode.tileType == TileType.ArtifactSpawn ||
                         targetNode.tileType == TileType.EnemySpawn ||
                         targetNode.tileType == TileType.PatrolPoint ||
@@ -95,11 +103,22 @@ public class GridMovement : MonoBehaviour
                     }
                 }
 
+                animator.SetFloat(horizontal, x);
+                animator.SetFloat(vertical, y);
 
                 currentGridPos = targetGridPos;
                 StartCoroutine(SmoothMove(targetGridPos));
 
             }
+        }
+
+        x = 0;
+        y = 0;
+
+        if (x == 0 && y == 0)
+        {
+            animator.SetFloat(lastHorizontal, x);
+            animator.SetFloat(lastVertical, y);
         }
     }
 
