@@ -1,14 +1,17 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 public enum UIInputAction 
 {
     Pause,
-
+    NavUp,
+    NavDown,
+    NavLeft,
+    NavRight
 }
 public enum PlayerInputAction 
 {
     Pulse,
-
 }
 public static class InputEvents 
 {
@@ -60,6 +63,22 @@ public class InputManager : MonoBehaviour
         m_actions.Player.Pulse.performed += ctx =>
         {
             InputEvents.InputAction(PlayerInputAction.Pulse);
+        };
+        m_actions.UI.NavigateUP.performed += ctx =>
+        {
+            InputEvents.UIInputAction(UIInputAction.NavUp);
+        };
+        m_actions.UI.NavigateDown.performed += ctx =>
+        {
+            InputEvents.UIInputAction(UIInputAction.NavDown);
+        };
+        m_actions.UI.NavigateRight.performed += ctx =>
+        {
+            InputEvents.UIInputAction(UIInputAction.NavRight);
+        };
+        m_actions.UI.NavigateLeft.performed += ctx =>
+        {
+            InputEvents.UIInputAction(UIInputAction.NavLeft);
         };
         myAudio = GetComponent<AudioSource>();
 
