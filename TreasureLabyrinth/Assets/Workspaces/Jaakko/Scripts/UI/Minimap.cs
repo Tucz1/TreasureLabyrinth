@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -166,6 +164,10 @@ public class Minimap : MonoBehaviour
             DiscoverableDisplay d = go.GetComponent<DiscoverableDisplay>();
             if (d == null)
                 return;
+
+
+            if (m_discoverables[i].Discovered)
+                go.SetActive(false);
 
             if (dist <= r + magicNumber) 
             {

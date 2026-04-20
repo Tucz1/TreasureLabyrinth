@@ -150,3 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f5b608ceb073d4ea08bfd91b0412a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Artifact
+  m_discoverable: {fileID: 328704415144766637}

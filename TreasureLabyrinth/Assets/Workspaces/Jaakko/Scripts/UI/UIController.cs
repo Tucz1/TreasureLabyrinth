@@ -131,10 +131,13 @@ public class UIController : MonoBehaviour
                 {                    
                     var selectables = new List<Selectable>();
 
-                    selectables.Add(m_resumeButton);
-                    selectables.Add(m_quitButton);
-                    selectables.Add(m_musicSlider);
                     selectables.Add(m_sfxSlider);
+                    selectables.Add(m_musicSlider);
+                    selectables.Add(m_quitButton);
+                    selectables.Add(m_resumeButton);
+                    
+                    
+                    
 
                     nav.UpdateSelectables(selectables);
                     Time.timeScale = 0;
@@ -228,6 +231,8 @@ public class UIController : MonoBehaviour
     private void SceneLoaded(Scene scene, LoadSceneMode mode) 
     {
         Time.timeScale = 1;
+        m_artifactsCollected = 0;
+        m_artifactsText.text = $"{m_artifactsCollected} / 4 COLLECTED";
 
         if (scene.name == "MenuScene") 
         {
@@ -307,7 +312,7 @@ public class UIController : MonoBehaviour
 
         m_artifactsCollected++;
 
-        m_artifactsText.text = $"{m_artifactsCollected} / {4} COLLECTED";
+        m_artifactsText.text = $"{m_artifactsCollected} / 4 COLLECTED";
     }
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_losePanel;

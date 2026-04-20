@@ -9,6 +9,8 @@ public class Artifact : MonoBehaviour
 
     private SpriteRenderer objSprite;
 
+    [SerializeField] private Discoverable m_discoverable;
+
 
 
 
@@ -43,6 +45,9 @@ public class Artifact : MonoBehaviour
         ArtifactData d = new();
         d.image = objSprite.sprite;
         d.name = "Artifact";
+
+        if (m_discoverable != null)
+            m_discoverable.SetDiscovered(true);
 
         UIEvents.ArtifactAdded(d);
 

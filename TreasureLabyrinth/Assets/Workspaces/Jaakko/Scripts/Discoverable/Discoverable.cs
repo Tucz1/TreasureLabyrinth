@@ -8,6 +8,11 @@ public enum DiscoverableType
 public class Discoverable : MonoBehaviour
 {
     [SerializeField] private DiscoverableType type;
+    public bool Discovered { get; private set; }
+    public void SetDiscovered(bool value) 
+    {
+        Discovered = value;
+    }
     public DiscoverableType Type => type;
     private void Awake()
     {
