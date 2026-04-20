@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder (100)]
+[DefaultExecutionOrder(100)]
 public class EnemyAI : MonoBehaviour {
     public BFS map;
     public Map mapdata;
@@ -46,8 +46,8 @@ public class EnemyAI : MonoBehaviour {
         mapdata = FindAnyObjectByType<Map>();
 
         var tempList = mapdata.data;
-        foreach (var item in tempList) { 
-        if(item.Value.tileType == TileType.PatrolPoint) {
+        foreach (var item in tempList) {
+            if (item.Value.tileType == TileType.PatrolPoint) {
                 patrolPointList.Add(item.Key);
             }
         }
@@ -74,11 +74,12 @@ public class EnemyAI : MonoBehaviour {
             //Debug.Log("We see the player yay");
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
             playerVisible = true;
-        } else {
+        }
+        else {
             //Debug.Log("We don't see the player oh no");
             Debug.DrawLine(transform.position, pos, Color.white);
             playerVisible = false;
-            }
+        }
     }
 
     private void Update() {
@@ -109,7 +110,7 @@ public class EnemyAI : MonoBehaviour {
 
     }
 
-    private Vector2Int generateGoalPos(Vector2Int ?goalPosInfo) {
+    private Vector2Int generateGoalPos(Vector2Int? goalPosInfo) {
         var goalPos = Vector2Int.zero;
 
         //PING LOCATION AS GOAL
@@ -120,17 +121,17 @@ public class EnemyAI : MonoBehaviour {
 
         //PREV POSITION AS GOAL
         if (currentState == EnemyState.patrollingToPlayer) {
-        var lastPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
+            var lastPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
             if (patrollingToLPos) {
                 goalPos = (Vector2Int)goalPosInfo;
                 Debug.Log("We're still going to the old position yippee");
             }
             else goalPos = lastPos;
         }
-        
+
         //CURRENT POSITION AS GOAL
         if (currentState == EnemyState.alert) {
-        goalPos = new Vector2Int(player.currentGridPos.x,player.currentGridPos.y);
+            goalPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
         }
 
         //RANDOM PATROL POINT AS GOAL
@@ -197,7 +198,7 @@ public class EnemyAI : MonoBehaviour {
             yield return MoveStep(next);
         }
     }
-    
+
     public void playerAlert() {
         StopAllCoroutines();
         path.Clear();
@@ -224,12 +225,12 @@ public class EnemyAI : MonoBehaviour {
         var prevState = currentState;
         switch (prevState) {
             case EnemyState.patrollingToPoint:
-                    currentState = EnemyState.patrollingToPlayer;
-                    patrollingToLPos = true;
+                currentState = EnemyState.patrollingToPlayer;
+                patrollingToLPos = true;
                 break;
             case EnemyState.patrollingToPlayer:
-                    currentState = EnemyState.patrollingToPoint;
-                    patrollingToLPos = false;   
+                currentState = EnemyState.patrollingToPoint;
+                patrollingToLPos = false;
                 break;
             case EnemyState.pinged:
                 currentState = EnemyState.patrollingToPlayer;
@@ -252,25 +253,30 @@ public class EnemyAI : MonoBehaviour {
     private void OnDisable() {
         AllEnemies.Remove(this);
     }
-    //IEnumerator MoveStep(Vector2Int target) {
-    //    var analogTarget = (Vector3)(Vector2)target;
-    //    while (transform.position != analogTarget) {
-    //        transform.position = Vector2.MoveTowards(
-    //        enemyCurrentGridPos,
-    //        analogTarget,
-    //        movespeed * Time.timeScale);
-    //        yield return null;
-    //    }
-    //    enemyCurrentGridPos = target;
-    //    think();
-    //}
-    //private void think() {
-    //    if (path == null || path.Count == 0) {
-    //        var destination = generateGoalPos();
-    //        path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
-    //    }
-    //    var next = path[0];
-    //    path.RemoveAt(0);
-    //    StartCoroutine(MoveStep(next));
-    //}
+    void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            UIController.I.GameEnded(false);
+        }
+    }
+        //IEnumerator MoveStep(Vector2Int target) {
+        //    var analogTarget = (Vector3)(Vector2)target;
+        //    while (transform.position != analogTarget) {
+        //        transform.position = Vector2.MoveTowards(
+        //        enemyCurrentGridPos,
+        //        analogTarget,
+        //        movespeed * Time.timeScale);
+        //        yield return null;
+        //    }
+        //    enemyCurrentGridPos = target;
+        //    think();
+        //}
+        //private void think() {
+        //    if (path == null || path.Count == 0) {
+        //        var destination = generateGoalPos();
+        //        path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
+        //    }
+        //    var next = path[0];
+        //    path.RemoveAt(0);
+        //    StartCoroutine(MoveStep(next));
+        //}
 }
