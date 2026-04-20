@@ -9,7 +9,9 @@ public enum UIPanelType
     Pause,
     HUD,
     Menu,
-    Credits
+    Credits,
+    Win,
+    Lose
 }
 public class UINavigation 
 {
@@ -102,6 +104,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button m_mainQuit;
     [SerializeField] private Button m_mainCredits;
     [SerializeField] private Button m_creditsBack;
+    [SerializeField] private Button m_winEndButton;
+    [SerializeField] private Button m_loseEndButton;
     [Header("Prefabs")]
     [SerializeField] private ArtifactDisplay m_artifactDisplayPrefab;
 
@@ -179,6 +183,28 @@ public class UIController : MonoBehaviour
                     nav.UpdateSelectables(s);
 
                     nav.SetCurrentSelected(m_creditsBack.gameObject);
+                }
+                break;
+            case UIPanelType.Win:
+                m_winPanel.SetActive(value);
+                if (value) 
+                {
+                    var s = new List<Selectable>();
+                    s.Add(m_winEndButton);
+
+                    nav.UpdateSelectables(s);
+                    nav.SetCurrentSelected(m_winEndButton.gameObject);
+                }
+                break;
+            case UIPanelType.Lose:
+                m_losePanel.SetActive(value);
+                if (value) 
+                {
+                    var s = new List<Selectable>();
+
+                    s.Add(m_loseEndButton);
+                    nav.UpdateSelectables(s);
+                    nav.SetCurrentSelected(m_loseEndButton.gameObject);
                 }
                 break;
         }
@@ -336,14 +362,16 @@ public class UIController : MonoBehaviour
     public void GameEnded(bool won) 
     {
         Time.timeScale = 0;
+        TogglePanel(UIPanelType.HUD, false);
+        TogglePanel(UIPanelType.Pause, false);
 
         if (won) 
         {
-            m_winPanel.SetActive(true);
+            TogglePanel(UIPanelType.Win, true);
         }
         else 
         {
-            m_losePanel.SetActive(true);
+            TogglePanel(UIPanelType.Lose, true);
         }
     }
 }

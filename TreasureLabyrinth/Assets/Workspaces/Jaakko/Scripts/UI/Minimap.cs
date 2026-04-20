@@ -12,6 +12,12 @@ public class Minimap : MonoBehaviour
     [SerializeField] private GameObject m_atrifactIcon;
     [SerializeField] private GameObject m_enemyIcon;
 
+    [SerializeField] private Material minimapMaterial;
+
+    [SerializeField] private float m_pulseRadius = 0.2f;
+    [SerializeField] private float m_pulseDuration = 3f;
+    [SerializeField] private AnimationCurve m_pulseCurve;
+
     private int mapSizeX;
     private int mapSizeY;
 
@@ -19,14 +25,12 @@ public class Minimap : MonoBehaviour
 
     private List<GameObject> m_artifacts = new();
     private List<Discoverable> m_enemies = new();
-
     private List<Discoverable> m_discoverables = new();
+    private Dictionary<Discoverable, GameObject> m_discoverableMap = new();
+    private Dictionary<Discoverable, GameObject> m_enemyMap = new();
 
-    [SerializeField] private Material minimapMaterial;
-
-    [SerializeField] private float m_pulseRadius = 0.2f;
-    [SerializeField] private float m_pulseDuration = 3f;
-    [SerializeField] private AnimationCurve m_pulseCurve;
+    private float pulseTimer = 10;
+    private bool pulseStarted = false;
 
     private void Start()
     {
@@ -56,7 +60,6 @@ public class Minimap : MonoBehaviour
             foreach (var a in m_artifacts)
                 Destroy(a);
         }
-        m_artifacts.Clear();
 
         if (m_enemies.Count > 0) 
         {
@@ -64,6 +67,7 @@ public class Minimap : MonoBehaviour
                 Destroy(a);
         }
 
+        m_artifacts.Clear();
         m_enemies.Clear();
         m_discoverables.Clear();
         m_discoverableMap.Clear();
@@ -112,8 +116,6 @@ public class Minimap : MonoBehaviour
         m_discoverableMap[enemy] = g;
         m_enemyMap[enemy] = g;
     }
-    private Dictionary<Discoverable, GameObject> m_discoverableMap = new();
-    private Dictionary<Discoverable, GameObject> m_enemyMap = new();
     Vector2 GetUIPos(Vector3 worldPos) 
     {
         Vector2 n = new Vector2(
@@ -132,10 +134,6 @@ public class Minimap : MonoBehaviour
 
         return uiPos;
     }
-
-
-    private float pulseTimer = 10;
-    private bool pulseStarted = false;
     void Update()
     {
         if (playerTransform == null) return;
