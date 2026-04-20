@@ -83,6 +83,10 @@ public class UINavigation
         m_current = m_selectables[i];
         EventSystem.current.SetSelectedGameObject(m_current.gameObject);
     }
+    public void SetCurrentSelected(GameObject go) 
+    {
+        EventSystem.current.SetSelectedGameObject(go);
+    }
 
 }
 [DefaultExecutionOrder(-100)]
@@ -173,6 +177,8 @@ public class UIController : MonoBehaviour
 
                     s.Add(m_creditsBack);
                     nav.UpdateSelectables(s);
+
+                    nav.SetCurrentSelected(m_creditsBack.gameObject);
                 }
                 break;
         }
@@ -232,6 +238,15 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
         m_artifactsCollected = 0;
         m_artifactsText.text = $"{m_artifactsCollected} / 4 COLLECTED";
+
+        if (m_artifactDisplays.Count > 0) 
+        {
+            foreach(var a in m_artifactDisplays) 
+            {
+                Destroy(a.gameObject);
+            }
+            m_artifactDisplays.Clear();
+        }
 
         if (scene.name == "MenuScene") 
         {
@@ -305,13 +320,15 @@ public class UIController : MonoBehaviour
         m_minimap.MapChanged(tex);
     }
     private int m_artifactsCollected = 0;
+
+    private List<ArtifactDisplay> m_artifactDisplays = new();
     private void ArtifactAdded(ArtifactData data) 
     {
         ArtifactDisplay a = Instantiate(m_artifactDisplayPrefab, m_artifactAnchor);
         a.Bind(data);
 
+        m_artifactDisplays.Add(a);
         m_artifactsCollected++;
-
         m_artifactsText.text = $"{m_artifactsCollected} / 4 COLLECTED";
     }
     [SerializeField] private GameObject m_winPanel;
