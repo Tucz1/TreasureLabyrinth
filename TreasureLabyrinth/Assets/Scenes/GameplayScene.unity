@@ -1251,7 +1251,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  bugScreech: {fileID: 0}
+  bugScreech: {fileID: 8300000, guid: 04e4872f2bcfd274aaccbeb3c4e39305, type: 3}
 --- !u!135 &1524365426
 SphereCollider:
   m_ObjectHideFlags: 0
