@@ -62,10 +62,10 @@ public class Minimap : MonoBehaviour
                 Destroy(a);
         }
 
-        if (m_enemies.Count > 0) 
+        
+        foreach (var kvp in m_enemyMap) 
         {
-            foreach(var a in m_enemies)
-                Destroy(a);
+            Destroy(kvp.Value.gameObject);
         }
 
         m_artifacts.Clear();

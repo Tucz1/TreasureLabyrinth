@@ -16,6 +16,8 @@ public static class UIEvents
 
     public static event Action<Discoverable> OnEnemySpawned;
 
+    public static event Action OnGameOver;
+
     public static void WindowToggleChanged(bool value) 
     {
         OnWindowToggleChanged?.Invoke(value);
@@ -48,6 +50,10 @@ public static class UIEvents
     public static void EnemySpawned(Discoverable d) 
     {
         OnEnemySpawned?.Invoke(d);
+    }
+    public static void GameOver() 
+    {
+        OnGameOver?.Invoke();
     }
 
 }

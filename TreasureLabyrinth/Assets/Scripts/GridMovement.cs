@@ -25,16 +25,21 @@ public class GridMovement : MonoBehaviour
         map = FindAnyObjectByType<Map>();
         myAudio = GetComponent<AudioSource>();
 
+        UIEvents.OnGameOver += GameOver;
     }
 
     void Start()
     {
         positionPlayer = FindAnyObjectByType<PositionPlayer>();
         currentGridPos = (Vector2Int)Vector3Int.RoundToInt(positionPlayer.transform.position);
-        
+
+        UIEvents.OnGameOver -= GameOver;
     }
 
-
+    private void GameOver() 
+    {
+        enabled = false;
+    }
     void Update()
     {
         if (isMoving) return;

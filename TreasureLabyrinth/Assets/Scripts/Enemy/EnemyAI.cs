@@ -58,6 +58,17 @@ public class EnemyAI : MonoBehaviour {
         enemyCurrentGridPos = new Vector2Int(tPosX, tPosY);
         currentState = EnemyState.patrollingToPoint;
         StartCoroutine(think());
+
+        UIEvents.OnGameOver += GameOver;
+    }
+    private void OnDestroy()
+    {
+        UIEvents.OnGameOver -= GameOver;
+    }
+    private void GameOver() 
+    {
+        StopAllCoroutines();
+        enabled = false;
     }
 
     private void visionCone() {

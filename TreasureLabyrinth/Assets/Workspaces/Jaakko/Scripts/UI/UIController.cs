@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -122,7 +123,6 @@ public class UIController : MonoBehaviour
     public static UIController I { get; private set; }
 
     private Minimap m_minimap;
-
     private UINavigation nav;
 
     public void TogglePanel(UIPanelType type, bool value) 
@@ -189,6 +189,7 @@ public class UIController : MonoBehaviour
                 m_winPanel.SetActive(value);
                 if (value) 
                 {
+                    StartCoroutine(FadeImage(m_winPanel.GetComponent<Image>()));
                     var s = new List<Selectable>();
                     s.Add(m_winEndButton);
 
@@ -197,9 +198,10 @@ public class UIController : MonoBehaviour
                 }
                 break;
             case UIPanelType.Lose:
-                m_losePanel.SetActive(value);
+                m_losePanel.SetActive(value);                
                 if (value) 
                 {
+                    StartCoroutine(FadeImage(m_losePanel.GetComponent<Image>()));
                     var s = new List<Selectable>();
 
                     s.Add(m_loseEndButton);
@@ -207,6 +209,23 @@ public class UIController : MonoBehaviour
                     nav.SetCurrentSelected(m_loseEndButton.gameObject);
                 }
                 break;
+        }
+    }
+    private IEnumerator FadeImage(Image i) 
+    {
+
+        Color c = i.color;
+        c.a = 0f;
+        i.color = c;
+
+        while (c.a < 1f)
+        {
+            c.a += Time.deltaTime;
+            c.a = Mathf.Clamp01(c.a);
+
+            i.color = c;
+
+            yield return null;
         }
     }
     private Canvas m_canvas;
@@ -271,6 +290,7 @@ public class UIController : MonoBehaviour
     private void SceneLoaded(Scene scene, LoadSceneMode mode) 
     {
         Time.timeScale = 1;
+        m_gameOver = false;
 
         m_artifactsCollected = 0;
         m_artifactsText.text = $"{m_artifactsCollected} / 4 COLLECTED";
@@ -370,8 +390,14 @@ public class UIController : MonoBehaviour
     }
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_losePanel;
+
+    private bool m_gameOver = false;
     public void GameEnded(bool won) 
     {
+        if (m_gameOver) return;
+        UIEvents.GameOver();
+
+        m_gameOver = true;
         Time.timeScale = 0;
 
         m_sfxSlider.value = 0f;
