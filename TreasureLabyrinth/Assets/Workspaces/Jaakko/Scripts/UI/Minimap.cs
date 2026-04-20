@@ -91,7 +91,6 @@ public class Minimap : MonoBehaviour
             RectTransform rt = g.GetComponent<RectTransform>();
             rt.anchoredPosition = GetUIPos(artifact.transform.position);
 
-            g.SetActive(false);
             m_artifacts.Add(g);
             m_discoverableMap[artifact] = g;
             m_discoverables.Add(artifact);
@@ -153,21 +152,28 @@ public class Minimap : MonoBehaviour
         CheckVisibleDiscoverables(r);
     }
     void CheckVisibleDiscoverables(float r) 
-    {             
+    {
+        float magicNumber = 0.05f;
+        if (r < magicNumber)
+            r = magicNumber;
+
         for (int i = 0; i < m_discoverables.Count; i++) 
         {
             float dist = Vector2.Distance(GetPosition(playerTransform.position)
                 , GetPosition(m_discoverables[i].transform.position));
 
             GameObject go = m_discoverableMap[m_discoverables[i]];
+            DiscoverableDisplay d = go.GetComponent<DiscoverableDisplay>();
+            if (d == null)
+                return;
 
-            if (dist <= r) 
-            {                
-                go.SetActive(true);                    
+            if (dist <= r + magicNumber) 
+            {
+                d.Toggle(true);    
             }
             else 
             {
-                go.SetActive(false);
+                d.Toggle(false);
             }
         }
         

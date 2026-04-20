@@ -12,6 +12,7 @@ public enum TileType
     EnemySpawn,
     ArtifactSpawn,
     Exit,
+    PatrolPoint,
 
 }
 
@@ -131,6 +132,7 @@ public class Map : MonoBehaviour
             {
                 Instantiate(exitTileSpawn, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
             }
+
         }
     }
 
@@ -183,6 +185,10 @@ public class Map : MonoBehaviour
                 else if (IsCloseEnough(pixel, mapDataColors["Exit"], colorThreshold))
                 {
                     tileType = TileType.Exit;
+                }
+                else if(IsCloseEnough(pixel, mapDataColors["PatrolPoint"], colorThreshold))
+                {
+                    tileType = TileType.PatrolPoint;
                 }
 
 

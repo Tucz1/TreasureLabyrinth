@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GridMovement : MonoBehaviour
 {
@@ -11,10 +12,15 @@ public class GridMovement : MonoBehaviour
     PositionPlayer positionPlayer;
     public event Action InteractWithArtifact;
     EnemyAI enemy;
+    public AudioClip whatToPlay;
+    AudioSource myAudio;
+    public UnityEvent footstepEvent;
+    public AudioClip bugScreech;
 
     void Awake()
     {
         map = FindAnyObjectByType<Map>();
+        myAudio = GetComponent<AudioSource>();
 
     }
 
@@ -46,8 +52,8 @@ public class GridMovement : MonoBehaviour
             {
                 return (targetNode.tileType == TileType.Floor) || 
                         targetNode.tileType == TileType.ArtifactSpawn ||
-                        targetNode.tileType == TileType.PlayerSpawn ||
                         targetNode.tileType == TileType.EnemySpawn ||
+                        targetNode.tileType == TileType.PatrolPoint ||
                         targetNode.tileType == TileType.Exit;
             }
 
@@ -61,6 +67,9 @@ public class GridMovement : MonoBehaviour
                     map.spawnEnemy();
                     enemy = FindAnyObjectByType<EnemyAI>();
                     enemy.artifactPickedUp();
+                    myAudio.PlayOneShot(whatToPlay);
+                    myAudio.PlayOneShot(bugScreech);
+
                 }
 
                 currentGridPos = targetGridPos;
@@ -75,6 +84,7 @@ public class GridMovement : MonoBehaviour
         isMoving = true;
 
         Vector3 targetWorldPos = new Vector3(targetGridPos.x, targetGridPos.y, 0f);
+        footstepEvent.Invoke();
 
         while (Vector3.Distance(transform.position, targetWorldPos) > 0.01f)
         {

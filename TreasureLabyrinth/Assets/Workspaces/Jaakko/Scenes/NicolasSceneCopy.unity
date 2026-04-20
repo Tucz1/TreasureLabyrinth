@@ -566,6 +566,7 @@ MonoBehaviour:
   floorTile: {fileID: 7281986721646849317, guid: abd0e9cc958a91f44b680253cfb385bc, type: 3}
   playerSpawnTile: {fileID: 3133553181664091652, guid: 7fa1d318a8b687c4a89f34ab19158d91, type: 3}
   enemySpawnTile: {fileID: 5430596677280578767, guid: 61f5331d70c76544a81078d3fe7e85c8, type: 3}
+  enemyPrefab: {fileID: 8061015437224001346, guid: 41b269fd8fbb13b42ab17a1b1004f89d, type: 3}
   artifactSpawnTile: {fileID: 342276002565328648, guid: c0da3927945c0794caa01d0ab5a84cd5, type: 3}
   exitTileSpawn: {fileID: 8709671499254721854, guid: f79c47fe9260f5948b6939cd6958fe81, type: 3}
   levelVisuals: {fileID: 309619716}
@@ -1278,6 +1279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 6
   currentGridPos: {x: 8, y: 4}
+  whatToPlay: {fileID: 0}
 --- !u!114 &1733612248
 MonoBehaviour:
   m_ObjectHideFlags: 0
