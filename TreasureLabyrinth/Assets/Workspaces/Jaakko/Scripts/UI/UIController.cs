@@ -254,6 +254,14 @@ public class UIController : MonoBehaviour
             TogglePanel(UIPanelType.Credits, false);
             TogglePanel(UIPanelType.Menu, true);
         });
+        m_winEndButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("MenuScene");
+        });
+        m_loseEndButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("MenuScene");
+        });
 
 
         UIEvents.OnArtifactAdded += ArtifactAdded;
