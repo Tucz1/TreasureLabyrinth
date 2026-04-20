@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public enum UIInputAction 
 {
     Pause,
@@ -81,8 +82,20 @@ public class InputManager : MonoBehaviour
             InputEvents.UIInputAction(UIInputAction.NavLeft);
         };
         myAudio = GetComponent<AudioSource>();
-    }
 
+        SceneManager.sceneLoaded += SceneLoaded;
+    }
+    private void SceneLoaded(Scene scene, LoadSceneMode mode) 
+    {
+        if (scene.name == "MenuScene") 
+        {
+            myAudio.volume = 0;
+        }
+        else 
+        {
+            myAudio.volume = 1;
+        }            
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
