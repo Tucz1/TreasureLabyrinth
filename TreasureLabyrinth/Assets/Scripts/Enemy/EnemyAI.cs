@@ -153,11 +153,11 @@ public class EnemyAI : MonoBehaviour {
     }
     IEnumerator think() {
         while (true) {
-            //if (currentState == EnemyState.alert) {
-            //    path.Clear();
-            //    var destination = generateGoalPos(goalPos);
-            //    path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
-            //}
+                //if (currentState == EnemyState.alert) {
+                //    path.Clear();
+                //    var destination = generateGoalPos(goalPos);
+                //    path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
+                //}
             if (path == null || path.Count == 0) {
                 newState();
                 var destination = generateGoalPos(goalPos);
