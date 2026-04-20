@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class Minimap : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private GameObject m_atrifactIcon;
+    [SerializeField] private GameObject m_enemyIcon;
 
     private int mapSizeX;
     private int mapSizeY;
@@ -16,7 +18,7 @@ public class Minimap : MonoBehaviour
     private Transform playerTransform;
 
     private List<GameObject> m_artifacts = new();
-    private List<GameObject> m_enemies = new();
+    private List<Discoverable> m_enemies = new();
 
     private List<Discoverable> m_discoverables = new();
 
@@ -29,10 +31,12 @@ public class Minimap : MonoBehaviour
     private void Start()
     {
         InputEvents.OnInputAction += InputAction;
+        UIEvents.OnEnemySpawned += EnemySpawned;
     }
     private void OnDestroy()
     {
         InputEvents.OnInputAction -= InputAction;
+        UIEvents.OnEnemySpawned -= EnemySpawned;
     }
     private void InputAction(PlayerInputAction action) 
     {
@@ -59,9 +63,11 @@ public class Minimap : MonoBehaviour
             foreach(var a in m_enemies)
                 Destroy(a);
         }
+
         m_enemies.Clear();
         m_discoverables.Clear();
         m_discoverableMap.Clear();
+        m_enemyMap.Clear();
 
         List<Discoverable> players = DiscoverableManager
             .GetDiscoverablesOfType(DiscoverableType.Player);
@@ -93,18 +99,21 @@ public class Minimap : MonoBehaviour
             m_discoverableMap[artifact] = g;
             m_discoverables.Add(artifact);
         }
+    }
+    private void EnemySpawned(Discoverable enemy) 
+    {
+        GameObject g = Instantiate(m_enemyIcon, m_mapImage.transform);
 
-        List<Discoverable> enemies = DiscoverableManager
-            .GetDiscoverablesOfType(DiscoverableType.Enemy);
-        if (enemies != null && enemies.Count > 0) 
-        {
-            foreach (Discoverable enemy in enemies)
-            {
-                                
-            }
-        }       
+        RectTransform rt = g.GetComponent<RectTransform>();
+        rt.anchoredPosition = GetUIPos(enemy.transform.position);
+
+        m_enemies.Add(enemy);
+        m_discoverables.Add(enemy);
+        m_discoverableMap[enemy] = g;
+        m_enemyMap[enemy] = g;
     }
     private Dictionary<Discoverable, GameObject> m_discoverableMap = new();
+    private Dictionary<Discoverable, GameObject> m_enemyMap = new();
     Vector2 GetUIPos(Vector3 worldPos) 
     {
         Vector2 n = new Vector2(
@@ -147,6 +156,7 @@ public class Minimap : MonoBehaviour
         float r = t * m_pulseRadius;
         minimapMaterial.SetFloat("_RadiusUV", r);
 
+        UpdateEnemyIcons();
         CheckVisibleDiscoverables(r);
     }
     void CheckVisibleDiscoverables(float r) 
@@ -187,6 +197,20 @@ public class Minimap : MonoBehaviour
                 pos.x / mapSizeX,
                 pos.y / mapSizeY
             );
+    }
+    void UpdateEnemyIcons() 
+    {
+        if (m_enemies == null || m_enemies.Count == 0)
+            return;
+
+        for (int i = 0; i < m_enemies.Count; i++) 
+        {
+            Discoverable e = m_enemies[i];
+            if (e == null) continue;
+
+            Vector2 p = GetUIPos(e.transform.position);
+            m_enemyMap[e].GetComponent<RectTransform>().anchoredPosition = p;
+        }
     }
     void UpdatePlayerIcon()
     {

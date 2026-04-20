@@ -46,7 +46,7 @@ Material:
     - _K: 10.45
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RadiusUV: 0
+    - _RadiusUV: 0.00093579537
     - _Softness: 0.05
     - _Stencil: 0
     - _StencilComp: 8

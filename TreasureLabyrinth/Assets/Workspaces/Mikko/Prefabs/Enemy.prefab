@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 1482731186675337583}
   - component: {fileID: 4894818710175119208}
   - component: {fileID: 1703910688024920873}
+  - component: {fileID: 6100992940097782268}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -356,12 +357,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   map: {fileID: 0}
+  mapdata: {fileID: 0}
   enemyCurrentGridPos: {x: 48, y: 48}
   pingPos: {x: 0, y: 0}
   patrolPos: {x: 0, y: 0}
   goalPos: {x: 0, y: 0}
+  lastPlayerPos: {x: 0, y: 0}
   path: []
+  patrolPointList: []
+  playerVisible: 0
   movespeed: 6
+  alert: 0
   visionRange: 10
   visionAngle: 30
   rotationSpeed: 480
@@ -369,7 +375,6 @@ MonoBehaviour:
   visionBlockersMask:
     serializedVersion: 2
     m_Bits: 64
-  patrolPointList: []
   player: {fileID: 0}
   currentState: 0
 --- !u!82 &1703910688024920873
@@ -469,3 +474,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6100992940097782268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061015437224001346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac488d4a6989d4e4182e46c4db669a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Discoverable
+  type: 1

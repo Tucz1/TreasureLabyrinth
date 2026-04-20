@@ -14,6 +14,8 @@ public static class UIEvents
 
     public static event Action<float> OnBrightnessValueChanged;
 
+    public static event Action<Discoverable> OnEnemySpawned;
+
     public static void WindowToggleChanged(bool value) 
     {
         OnWindowToggleChanged?.Invoke(value);
@@ -42,6 +44,10 @@ public static class UIEvents
     public static void ArtifactAdded(ArtifactData data) 
     {
         OnArtifactAdded?.Invoke(data);
+    }
+    public static void EnemySpawned(Discoverable d) 
+    {
+        OnEnemySpawned?.Invoke(d);
     }
 
 }

@@ -97,7 +97,13 @@ public class Map : MonoBehaviour
     {
         var enemySpawnTile = FindAnyObjectByType<EnemySpawner>();
         var enemySpawnTilePos = enemySpawnTile.transform;
-        Instantiate(enemyPrefab, enemySpawnTilePos.position, Quaternion.identity);
+        GameObject go = Instantiate(enemyPrefab, enemySpawnTilePos.position, Quaternion.identity);
+
+        Discoverable d = go.GetComponent<Discoverable>();  
+        if (d != null) 
+        {
+            UIEvents.EnemySpawned(d);   
+        }
     }
 
     public void RefreshVisuals()
