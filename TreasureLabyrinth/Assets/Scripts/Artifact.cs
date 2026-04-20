@@ -43,6 +43,6 @@ public class Artifact : MonoBehaviour
         Vector2Int pos = (Vector2Int)Vector3Int.RoundToInt(transform.position);
 
         map.data[pos].tileType = TileType.Floor;
-        Destroy(transform.parent.gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -35,7 +35,7 @@ public class MapDataColors
     public Color32 color;
 }
 [Serializable]
-public class MapTextureSet 
+public class MapTextureSet
 {
     public Texture2D levelTexture;
     public Texture2D mapTexture;
@@ -88,10 +88,11 @@ public class Map : MonoBehaviour
         OnMapChanged?.Invoke(mapTextures[0].levelTexture);
     }
 
-    public void spawnEnemy() {
+    public void spawnEnemy()
+    {
         var enemySpawnTile = FindAnyObjectByType<EnemySpawner>();
         var enemySpawnTilePos = enemySpawnTile.transform;
-        Instantiate(enemyPrefab,enemySpawnTilePos.position, Quaternion.identity);
+        Instantiate(enemyPrefab, enemySpawnTilePos.position, Quaternion.identity);
     }
 
     public void RefreshVisuals()
@@ -120,7 +121,7 @@ public class Map : MonoBehaviour
             {
                 Instantiate(enemySpawnTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
             }
-            
+
             if (dictonary.Value.tileType == TileType.ArtifactSpawn)
             {
                 Instantiate(artifactSpawnTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
@@ -156,7 +157,7 @@ public class Map : MonoBehaviour
                             Mathf.Abs(c1.g - c2.g) < threshold &&
                             Mathf.Abs(c1.b - c2.b) < threshold;
                 }
-                
+
                 if (IsCloseEnough(pixel, mapDataColors["Wall"], colorThreshold))
                 {
                     // dodo

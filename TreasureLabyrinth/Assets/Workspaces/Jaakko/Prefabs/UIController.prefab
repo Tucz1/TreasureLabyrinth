@@ -937,6 +937,41 @@ MonoBehaviour:
   playerIcon: {fileID: 6564150448850814588}
   m_atrifactIcon: {fileID: 817946439598046922, guid: de4b2c7cf0275844181aca8cfb4d9071, type: 3}
   minimapMaterial: {fileID: 2100000, guid: 3aa5fad79b14472429804bcd14b91f65, type: 2}
+  m_pulseRadius: 0.2
+  m_pulseDuration: 2
+  m_pulseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 9.778636
+      outSlope: 9.778636
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.10127598
+      value: 0.99034095
+      inSlope: -0.6183894
+      outSlope: -0.17395906
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.14145106
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1.0150331
+      value: 0.0046789767
+      inSlope: -1.0786914
+      outSlope: -1.0786914
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6260874282461989022
 GameObject:
   m_ObjectHideFlags: 0
