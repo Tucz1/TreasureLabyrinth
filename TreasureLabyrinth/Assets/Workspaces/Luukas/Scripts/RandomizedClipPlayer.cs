@@ -20,6 +20,7 @@ public class PlayRandomizedClip : MonoBehaviour
         if (modifier == 0)
         {
             clips = clips0;
+
         }
 
         if (modifier == 1)
