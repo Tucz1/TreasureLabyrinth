@@ -113,7 +113,7 @@ public class GridMovement : MonoBehaviour
         animator.SetFloat(horizontal, x);
         animator.SetFloat(vertical, y);
 
-        if (x == 0 && y == 0)
+        if (x != 0 || y != 0)
         {
             animator.SetFloat(lastHorizontal, x);
             animator.SetFloat(lastVertical, y);
