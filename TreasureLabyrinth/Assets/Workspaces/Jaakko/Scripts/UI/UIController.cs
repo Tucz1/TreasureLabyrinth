@@ -92,12 +92,12 @@ public class UIController : MonoBehaviour
     [Header("Sliders")]
     [SerializeField] private Slider m_musicSlider;
     [SerializeField] private Slider m_sfxSlider;
-    [SerializeField] private Slider m_brightnessSlider;
     [Header("Buttons")]
     [SerializeField] private Button m_resumeButton;
     [SerializeField] private Button m_quitButton;
     [Header("Prefabs")]
     [SerializeField] private ArtifactDisplay m_artifactDisplayPrefab;
+    
     [Header("Anchors")]
     [SerializeField] private Transform m_artifactAnchor;
 
@@ -123,13 +123,13 @@ public class UIController : MonoBehaviour
                 if (value) 
                 {
                     var selectables = new List<Selectable>();
+
                     selectables.Add(m_resumeButton);
                     selectables.Add(m_quitButton);
                     selectables.Add(m_musicSlider);
                     selectables.Add(m_sfxSlider);
 
                     nav.UpdateSelectables(selectables);
-
                     Time.timeScale = 0;
                 }
                 else 

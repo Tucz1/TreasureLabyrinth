@@ -40,6 +40,12 @@ public class Artifact : MonoBehaviour
 
     public void Interact()
     {
+        ArtifactData d = new();
+        d.image = objSprite.sprite;
+        d.name = "Artifact";
+
+        UIEvents.ArtifactAdded(d);
+
         Vector2Int pos = (Vector2Int)Vector3Int.RoundToInt(transform.position);
 
         map.data[pos].tileType = TileType.Floor;
