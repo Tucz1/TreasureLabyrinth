@@ -54,10 +54,10 @@ public class UINavigation
         switch (dir) 
         {
             case NavigationDirection.Up:
-                UpdateCurrent(1);
+                UpdateCurrent(-1);
                 break;
             case NavigationDirection.Down:
-                UpdateCurrent(-1);
+                UpdateCurrent(1);
                 break;
         }
     }
