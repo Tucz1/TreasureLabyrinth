@@ -103,8 +103,6 @@ public class GridMovement : MonoBehaviour
                     }
                 }
 
-                animator.SetFloat(horizontal, x);
-                animator.SetFloat(vertical, y);
 
                 currentGridPos = targetGridPos;
                 StartCoroutine(SmoothMove(targetGridPos));
@@ -112,8 +110,8 @@ public class GridMovement : MonoBehaviour
             }
         }
 
-        x = 0;
-        y = 0;
+        animator.SetFloat(horizontal, x);
+        animator.SetFloat(vertical, y);
 
         if (x == 0 && y == 0)
         {
