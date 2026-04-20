@@ -35,6 +35,9 @@ public class InputManager : MonoBehaviour
 
     public Transform[] artifacts;
     public GameObject pulsePrefab;
+    AudioSource myAudio;
+    public AudioClip whatToPlay;
+
 
     private void Awake()
     {
@@ -58,6 +61,8 @@ public class InputManager : MonoBehaviour
         {
             InputEvents.InputAction(PlayerInputAction.Pulse);
         };
+        myAudio = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -82,6 +87,8 @@ public class InputManager : MonoBehaviour
             }
             
             InputEvents.InputAction(PlayerInputAction.Pulse);
+            myAudio.PlayOneShot(whatToPlay);
+
         }
     }
 
