@@ -918,7 +918,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 734751129147353748, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_fontSize
-      value: 28.6
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 880074683536335388, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 1042542915017013718, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_Camera
@@ -926,7 +930,7 @@ PrefabInstance:
       objectReference: {fileID: 144084493}
     - target: {fileID: 2620052736531247639, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_fontSize
-      value: 28.6
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 2680704123862366477, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_AnchorMax.y
@@ -954,7 +958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2953748776034875941, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_fontSize
-      value: 28.6
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 3030011534732973180, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_AnchorMax.y
@@ -980,11 +984,50 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3159304989365474253, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3159304989365474253, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5731259294229803322, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_Name
       value: UIController
       objectReference: {fileID: 0}
+    - target: {fileID: 5957087294201172790, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_text
+      value: 'LEAD PROGRAMMER - NICOLAS PIIRAINEN
+
+        ENEMY PROGRAMMER - MIKKO
+        MAKELA
+
+        UI  PROGRAMMER - JAAKKO MANSIKKA
+
+        ILLUSTRATOR - ELMERI
+        KIVINEN
+
+        ARTIST - VEETI  LIPIAINEN
+
+        AUDIO - LUUKAS MAKELA
+
+        MUSIC
+        - JESSE KONTTINEN'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957087294201172790, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_fontSize
+      value: 121.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957087294201172790, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6611269732186963824, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7403094088143389200, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

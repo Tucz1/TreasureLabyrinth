@@ -124,6 +124,7 @@ public class UIController : MonoBehaviour
 
     private Minimap m_minimap;
     private UINavigation nav;
+    [SerializeField] Animator animator;
 
     public void TogglePanel(UIPanelType type, bool value) 
     {
@@ -289,6 +290,8 @@ public class UIController : MonoBehaviour
     }
     private void SceneLoaded(Scene scene, LoadSceneMode mode) 
     {
+        animator.SetTrigger("StartFade");
+
         Time.timeScale = 1;
         m_gameOver = false;
 
@@ -326,6 +329,7 @@ public class UIController : MonoBehaviour
                 m.OnMapChanged += MapChanged;
         }        
         m_canvas.worldCamera = Camera.main;
+
     }
     private void OnDestroy()
     {
