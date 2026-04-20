@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum UIPanelType 
 {
     Pause,
     HUD,
-    Menu
+    Menu,
+    Credits
 }
 public class UINavigation 
 {
@@ -33,8 +34,6 @@ public class UINavigation
     }
     public void Navigate(NavigationDirection dir) 
     {
-        Debug.Log(dir);
-
         if (m_current != null) 
         {
             if (m_current is Slider slider) 
@@ -54,10 +53,10 @@ public class UINavigation
         switch (dir) 
         {
             case NavigationDirection.Up:
-                UpdateCurrent(-1);
+                UpdateCurrent(1);
                 break;
             case NavigationDirection.Down:
-                UpdateCurrent(1);
+                UpdateCurrent(-1);
                 break;
         }
     }
@@ -97,15 +96,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button m_quitButton;
     [SerializeField] private Button m_mainStart;
     [SerializeField] private Button m_mainQuit;
+    [SerializeField] private Button m_mainCredits;
+    [SerializeField] private Button m_creditsBack;
     [Header("Prefabs")]
     [SerializeField] private ArtifactDisplay m_artifactDisplayPrefab;
-    
+
+    [Header("Text")]
+    [SerializeField] private TMP_Text m_artifactsText;
     [Header("Anchors")]
     [SerializeField] private Transform m_artifactAnchor;
 
     [SerializeField] private GameObject m_pausePanel;
     [SerializeField] private GameObject m_gamePanel;
     [SerializeField] private GameObject m_menuPanel;
+    [SerializeField] private GameObject m_creditsPanel;
 
     public static UIController I { get; private set; }
 
@@ -124,7 +128,7 @@ public class UIController : MonoBehaviour
             case UIPanelType.Pause:
                 m_pausePanel.SetActive(value);
                 if (value) 
-                {
+                {                    
                     var selectables = new List<Selectable>();
 
                     selectables.Add(m_resumeButton);
@@ -137,6 +141,7 @@ public class UIController : MonoBehaviour
                 }
                 else 
                 {
+                    TogglePanel(UIPanelType.HUD, true);
                     Time.timeScale = 1;
                 }
                     break;
@@ -152,9 +157,21 @@ public class UIController : MonoBehaviour
 
                     selectables.Add(m_mainStart);
                     selectables.Add(m_mainQuit);
+                    selectables.Add(m_mainCredits);
 
                     nav.UpdateSelectables(selectables);
                 }                
+                break;
+            case UIPanelType.Credits:
+                m_creditsPanel.SetActive(value);
+
+                if (value) 
+                {
+                    var s = new List<Selectable>();
+
+                    s.Add(m_creditsBack);
+                    nav.UpdateSelectables(s);
+                }
                 break;
         }
     }
@@ -194,8 +211,15 @@ public class UIController : MonoBehaviour
         {
             Application.Quit();
         });
-        TogglePanel(UIPanelType.Pause, false);
-
+        m_mainCredits.onClick.AddListener(() =>
+        {
+            TogglePanel(UIPanelType.Credits, true);
+        });
+        m_creditsBack.onClick.AddListener(() =>
+        {
+            TogglePanel(UIPanelType.Credits, false);
+            TogglePanel(UIPanelType.Menu, true);
+        });
 
 
         UIEvents.OnArtifactAdded += ArtifactAdded;
@@ -209,21 +233,22 @@ public class UIController : MonoBehaviour
         {
             TogglePanel(UIPanelType.HUD, false);
             TogglePanel(UIPanelType.Pause, false);
-            TogglePanel(UIPanelType.Menu, true);
+            TogglePanel(UIPanelType.Credits, false);
+
+            TogglePanel(UIPanelType.Menu, true);            
         }
         else 
         {
             TogglePanel(UIPanelType.Menu, false);
             TogglePanel(UIPanelType.Pause, false);
+            TogglePanel(UIPanelType.Credits, false);
+
             TogglePanel(UIPanelType.HUD, true);
 
             Map m = FindAnyObjectByType<Map>();
             if (m)
                 m.OnMapChanged += MapChanged;
-        }
-
-        
-
+        }        
         m_canvas.worldCamera = Camera.main;
     }
     private void OnDestroy()
@@ -252,6 +277,7 @@ public class UIController : MonoBehaviour
         switch (action) 
         {
             case UIInputAction.Pause:
+                TogglePanel(UIPanelType.HUD, false);
                 TogglePanel(UIPanelType.Pause, true);
                 break;
             case UIInputAction.NavUp:
@@ -273,10 +299,15 @@ public class UIController : MonoBehaviour
     {
         m_minimap.MapChanged(tex);
     }
+    private int m_artifactsCollected = 0;
     private void ArtifactAdded(ArtifactData data) 
     {
         ArtifactDisplay a = Instantiate(m_artifactDisplayPrefab, m_artifactAnchor);
         a.Bind(data);
+
+        m_artifactsCollected++;
+
+        m_artifactsText.text = $"{m_artifactsCollected} / {4} COLLECTED";
     }
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_losePanel;
