@@ -223,6 +223,7 @@ public class UIController : MonoBehaviour
         m_canvas = GetComponentInChildren<Canvas>();        
         nav = new UINavigation();
         m_minimap = GetComponent<Minimap>();
+        m_sfxSlider.value = 1f;
 
         m_musicSlider.onValueChanged.AddListener(UIEvents.MusicVolumeChanged);
         m_sfxSlider.onValueChanged.AddListener(UIEvents.SfxVolumeChanged);
@@ -370,6 +371,8 @@ public class UIController : MonoBehaviour
     public void GameEnded(bool won) 
     {
         Time.timeScale = 0;
+        m_sfxSlider.value = 0f;
+
         TogglePanel(UIPanelType.HUD, false);
         TogglePanel(UIPanelType.Pause, false);
 
