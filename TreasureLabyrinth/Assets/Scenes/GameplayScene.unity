@@ -536,6 +536,10 @@ MonoBehaviour:
     color:
       serializedVersion: 2
       rgba: 16711680
+  - colorRole: PatrolPoint
+    color:
+      serializedVersion: 2
+      rgba: 16711935
   colorThreshold: 5
   wallTile: {fileID: 7474312558060612879, guid: a4a9992117032ae4ba36e725d1567ae1, type: 3}
   floorTile: {fileID: 7281986721646849317, guid: abd0e9cc958a91f44b680253cfb385bc, type: 3}

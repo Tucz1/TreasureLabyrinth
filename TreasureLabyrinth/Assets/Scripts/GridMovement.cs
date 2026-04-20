@@ -46,8 +46,8 @@ public class GridMovement : MonoBehaviour
             {
                 return (targetNode.tileType == TileType.Floor) || 
                         targetNode.tileType == TileType.ArtifactSpawn ||
-                        targetNode.tileType == TileType.PlayerSpawn ||
                         targetNode.tileType == TileType.EnemySpawn ||
+                        targetNode.tileType == TileType.PatrolPoint ||
                         targetNode.tileType == TileType.Exit;
             }
 

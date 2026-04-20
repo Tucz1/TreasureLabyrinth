@@ -46,7 +46,7 @@ Material:
     - _K: 10.45
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RadiusUV: 0.047000933
+    - _RadiusUV: 0.00093579537
     - _Softness: 0.05
     - _Stencil: 0
     - _StencilComp: 8
@@ -58,7 +58,7 @@ Material:
     - _Zoom: 0
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
-    - _PlayerUV: {r: 0.55, g: 0.64, b: 0, a: 0}
+    - _PlayerUV: {r: 0.74, g: 0.62, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2001868903214280465
