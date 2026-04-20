@@ -5,20 +5,23 @@ using UnityEngine;
 [DefaultExecutionOrder (100)]
 public class EnemyAI : MonoBehaviour {
     public BFS map;
+    public Map mapdata;
     public Vector2Int enemyCurrentGridPos;
     //public Vector2Int goalPos;
     public Vector2Int pingPos;
     public Vector2Int patrolPos;
     public Vector2Int goalPos;
+    public Vector2Int lastPlayerPos;
     public List<Vector2Int> path;
+    public List<Vector2Int> patrolPointList;
 
-    bool playerVisible = false;
+    public bool playerVisible = false;
     bool pinged = false;
     bool patrollingToLPos = false;
     public float movespeed = 6f;
     float timer = 0f;
     float alertTime = 3f;
-    bool alert = false;
+    public bool alert = false;
 
     [SerializeField] float visionRange = 90f;
     [SerializeField] float visionAngle = 30f;
@@ -26,7 +29,6 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField] bool visiblePlayers = false;
     [SerializeField] LayerMask visionBlockersMask;
 
-    public List<Vector2Int> patrolPointList;
 
     [SerializeField] GridMovement player;
     //Vector2Int playerPos;
@@ -40,6 +42,15 @@ public class EnemyAI : MonoBehaviour {
     private void Awake() {
         player = FindAnyObjectByType<GridMovement>();
         map = FindAnyObjectByType<BFS>();
+        mapdata = FindAnyObjectByType<Map>();
+
+        var tempList = mapdata.data;
+        foreach (var item in tempList) { 
+        if(item.Value.tileType == TileType.PatrolPoint) {
+                patrolPointList.Add(item.Key);
+            }
+        }
+
         if (player == null) Debug.Log("Player is null");
         int tPosX = (int)transform.position.x;
         int tPosY = (int)transform.position.y;
@@ -59,15 +70,15 @@ public class EnemyAI : MonoBehaviour {
                                 out RaycastHit hitInfo,
                                 delta.magnitude,
                                 visionBlockersMask)) {
-            Debug.Log("We don't see the player nay");
+            Debug.Log("We see the player yay");
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
             playerVisible = false;
         } else {
-            Debug.Log("We see the player yay");
+            Debug.Log("We don't see the player oh no");
             Debug.DrawLine(transform.position, pos, Color.white);
             playerVisible = true;
-        }
-        }
+            }
+    }
 
     private void Update() {
         visionCone();
@@ -81,28 +92,33 @@ public class EnemyAI : MonoBehaviour {
         Debug.DrawLine(p, p + left);
         Debug.DrawLine(p, p + right);
 
-        //if (playerVisible) {
-        //    timer = 0;
-        //    playerAlert();
+        if (playerVisible) {
+            timer = 0;
 
-        //} else {
-        //    timer += Time.deltaTime;
-        //    if(timer >= alertTime) {
-        //        // Return to patrol
-        //    }
-        //}
-        
+            if (currentState != EnemyState.alert) {
+                playerAlert();
+            }
+        }
+        else {
+            timer += Time.deltaTime;
+            if (timer >= alertTime) {
+                // Return to patrol
+            }
+        }
+
     }
 
     private Vector2Int generateGoalPos(Vector2Int ?goalPosInfo) {
         var goalPos = Vector2Int.zero;
 
         //PING LOCATION AS GOAL
-        //if (pinged) goalPos = pingPos;
+        if (pinged) {
+            goalPos = pingPos;
+            pinged = false;
+        }
 
         //PREV POSITION AS GOAL
         if (currentState == EnemyState.patrollingToPlayer) {
-            if (player == null) Debug.Log("Player is null, patrolstate");
         var lastPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
             if (patrollingToLPos) {
                 goalPos = (Vector2Int)goalPosInfo;
@@ -124,14 +140,15 @@ public class EnemyAI : MonoBehaviour {
             }
 
             else {
-                Debug.Log("We shouldn't be here yet");
+                Debug.Log("We got working patrol points yay");
                 int rndNum = Random.Range(0, patrolPointList.Count);
                 goalPos = patrolPointList[rndNum];
             }
         }
-        else
+        else {
             Debug.Log($"Weird state situation: {currentState} , giving player pos.");
             goalPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
+        }
         return goalPos;
     }
 
@@ -153,11 +170,15 @@ public class EnemyAI : MonoBehaviour {
     }
     IEnumerator think() {
         while (true) {
-                //if (currentState == EnemyState.alert) {
-                //    path.Clear();
-                //    var destination = generateGoalPos(goalPos);
-                //    path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
-                //}
+            if (currentState == EnemyState.alert) {
+                var currentPlayerPos = player.currentGridPos;
+
+                if (currentPlayerPos != lastPlayerPos) {
+                    path.Clear();
+                    path = map.SearchAndBuildPath(enemyCurrentGridPos, currentPlayerPos);
+                    lastPlayerPos = currentPlayerPos;
+                }
+            }
             if (path == null || path.Count == 0) {
                 newState();
                 var destination = generateGoalPos(goalPos);
