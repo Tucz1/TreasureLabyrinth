@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
   artifacts: []
   pulsePrefab: {fileID: 3102610834038855938, guid: d1f18fc1c9770934a96128e079d92d3a, type: 3}
-  whatToPlay: {fileID: 8300000, guid: 5681af852f0456545ab7c747188f9545, type: 3}
+  whatToPlay: {fileID: 8300000, guid: 21616eaea830b1c408f8b876bf4957b1, type: 3}
 --- !u!82 &5911518010175401446
 AudioSource:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

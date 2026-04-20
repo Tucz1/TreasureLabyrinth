@@ -12,7 +12,7 @@ public class GridMovement : MonoBehaviour
     PositionPlayer positionPlayer;
     public event Action InteractWithArtifact;
     EnemyAI enemy;
-    public AudioClip whatToPlay;
+    public AudioClip pickupSFX;
     AudioSource myAudio;
     public UnityEvent footstepEvent;
     public AudioClip bugScreech;
@@ -67,7 +67,7 @@ public class GridMovement : MonoBehaviour
                     map.spawnEnemy();
                     enemy = FindAnyObjectByType<EnemyAI>();
                     enemy.artifactPickedUp();
-                    myAudio.PlayOneShot(whatToPlay);
+                    myAudio.PlayOneShot(pickupSFX);
                     myAudio.PlayOneShot(bugScreech);
 
                 }

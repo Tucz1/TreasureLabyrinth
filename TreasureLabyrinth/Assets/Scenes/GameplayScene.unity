@@ -334,7 +334,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 7d378307a1242bd42bd9f5f6fc009d71, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -531,6 +531,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!82 &437944888 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1906919338989180596, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+  m_PrefabInstance: {fileID: 1035596823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &849606419
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 849606421}
   - component: {fileID: 849606420}
+  - component: {fileID: 849606422}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -581,6 +587,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &849606422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849606419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e8b63b904ebca4fbc3ce0bf51dfbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayRandomizedClip
+  source: {fileID: 437944888}
+  modifier: 0
+  clips0:
+  - {fileID: 8300000, guid: 100b018fb7f95d04384fe1cedb855377, type: 3}
+  - {fileID: 8300000, guid: 2cceffd5266e27340b9c690485c55813, type: 3}
+  - {fileID: 8300000, guid: 523e97cd19cbf55449854974b0e54823, type: 3}
+  - {fileID: 8300000, guid: 64a989119b717c74595b8740a52622a6, type: 3}
+  - {fileID: 8300000, guid: fb66ce9e7eeee5d409fde78257c304f4, type: 3}
+  clips1: []
+  clips2: []
+  clips3: []
+  clips4: []
+  clips5: []
 --- !u!1 &965981981
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +991,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8601238852427095187, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601238852427095187, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
@@ -1199,7 +1234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 6
   currentGridPos: {x: 0, y: 0}
-  whatToPlay: {fileID: 8300000, guid: 5681af852f0456545ab7c747188f9545, type: 3}
+  pickupSFX: {fileID: 0}
   footstepEvent:
     m_PersistentCalls:
       m_Calls: []

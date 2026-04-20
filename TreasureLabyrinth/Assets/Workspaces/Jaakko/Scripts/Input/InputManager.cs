@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public enum UIInputAction 
+public enum UIInputAction
 {
     Pause,
     NavUp,
@@ -10,20 +10,20 @@ public enum UIInputAction
     NavLeft,
     NavRight
 }
-public enum PlayerInputAction 
+public enum PlayerInputAction
 {
     Pulse,
 }
-public static class InputEvents 
+public static class InputEvents
 {
     public static event Action<UIInputAction> OnUIInputAction;
-    public static event Action<PlayerInputAction> OnInputAction;  
+    public static event Action<PlayerInputAction> OnInputAction;
 
-    public static void UIInputAction(UIInputAction action) 
+    public static void UIInputAction(UIInputAction action)
     {
         OnUIInputAction?.Invoke(action);
     }
-    public static void InputAction(PlayerInputAction action) 
+    public static void InputAction(PlayerInputAction action)
     {
         OnInputAction?.Invoke(action);
     }
@@ -31,7 +31,7 @@ public static class InputEvents
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager I {  get; private set; }
+    public static InputManager I { get; private set; }
 
     private InputSystem_Actions m_actions;
 
@@ -41,11 +41,12 @@ public class InputManager : MonoBehaviour
     public GameObject pulsePrefab;
     AudioSource myAudio;
     public AudioClip whatToPlay;
+    [Range(0f, 1f)][SerializeField] float pingVolume;
 
 
     private void Awake()
     {
-        if (I != null) 
+        if (I != null)
         {
             Destroy(gameObject);
             return;
@@ -85,16 +86,16 @@ public class InputManager : MonoBehaviour
 
         SceneManager.sceneLoaded += SceneLoaded;
     }
-    private void SceneLoaded(Scene scene, LoadSceneMode mode) 
+    private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MenuScene") 
+        if (scene.name == "MenuScene")
         {
             myAudio.volume = 0;
         }
-        else 
+        else
         {
-            myAudio.volume = 1;
-        }            
+            myAudio.volume = pingVolume;
+        }
     }
     void Update()
     {
@@ -116,7 +117,7 @@ public class InputManager : MonoBehaviour
                 Destroy(pulse, 4);
                 Debug.Log(artifacts[i]);
             }
-            
+
             InputEvents.InputAction(PlayerInputAction.Pulse);
             myAudio.PlayOneShot(whatToPlay);
 
@@ -127,7 +128,7 @@ public class InputManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (I != this) 
+        if (I != this)
         {
             return;
         }

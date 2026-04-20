@@ -54,6 +54,6 @@ public class Artifact : MonoBehaviour
         Vector2Int pos = (Vector2Int)Vector3Int.RoundToInt(transform.position);
 
         map.data[pos].tileType = TileType.Floor;
-        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 }
