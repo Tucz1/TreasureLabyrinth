@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1006987026565811513}
   - component: {fileID: 2517360305923345352}
   - component: {fileID: 328704415144766637}
+  - component: {fileID: 2137045296004519478}
   m_Layer: 0
   m_Name: ArtifactSpawn
-  m_TagString: Untagged
+  m_TagString: Artifact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +128,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Discoverable
   type: 0
+--- !u!114 &2137045296004519478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342276002565328648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f5b608ceb073d4ea08bfd91b0412a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &9109193941544929182
 PrefabInstance:
   m_ObjectHideFlags: 0

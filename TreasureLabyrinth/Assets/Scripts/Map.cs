@@ -18,11 +18,13 @@ public enum TileType
 public class Node
 {
     public TileType tileType;
+    public Artifact artifact;
 
 
     public Node(TileType tileType)
     {
         this.tileType = tileType;
+        this.artifact = null;
     }
 }
 

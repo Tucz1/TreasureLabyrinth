@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class GridMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 1f;
     public Vector2Int currentGridPos;
     PositionPlayer positionPlayer;
+    public event Action InteractWithArtifact;
 
     void Awake()
     {
@@ -49,6 +51,12 @@ public class GridMovement : MonoBehaviour
 
             if (targetNode != null && CheckForWalkability())
             {
+                if (targetNode.tileType == TileType.ArtifactSpawn)
+                {
+                    targetNode.artifact.Interact();
+                    InteractWithArtifact?.Invoke();
+                }
+
                 currentGridPos = targetGridPos;
                 StartCoroutine(SmoothMove(targetGridPos));
 

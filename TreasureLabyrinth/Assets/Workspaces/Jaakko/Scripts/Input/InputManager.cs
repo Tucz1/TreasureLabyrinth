@@ -33,6 +33,9 @@ public class InputManager : MonoBehaviour
 
     public InputSystem_Actions Actions => m_actions;
 
+    public Transform[] artifacts;
+    public GameObject pulsePrefab;
+
     private void Awake()
     {
         if (I != null) 
@@ -56,6 +59,32 @@ public class InputManager : MonoBehaviour
             InputEvents.InputAction(PlayerInputAction.Pulse);
         };
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Artifact");
+
+            artifacts = new Transform[gameObjects.Length];
+            for (int i = 0; i < gameObjects.Length; i++)
+            {
+                artifacts[i] = gameObjects[i].transform;
+            }
+
+            for (int i = 0; i < artifacts.Length; i++)
+            {
+                var pulse = Instantiate(pulsePrefab, artifacts[i]);
+                Destroy(pulse, 4);
+                Debug.Log(artifacts[i]);
+            }
+            
+            InputEvents.InputAction(PlayerInputAction.Pulse);
+        }
+    }
+
+
+
     private void OnDestroy()
     {
         if (I != this) 
