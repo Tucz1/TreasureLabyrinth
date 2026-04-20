@@ -961,6 +961,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8592360728921387497, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_exitIcon
+      value: 
+      objectReference: {fileID: 817946439598046922, guid: cd681ae6e69104b4b9a9cc699f5d91c5, type: 3}
+    - target: {fileID: 8592360728921387497, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_enemyIcon
       value: 
       objectReference: {fileID: 817946439598046922, guid: 2ab6b49a9aa1ff94eb157c58e68a1f53, type: 3}

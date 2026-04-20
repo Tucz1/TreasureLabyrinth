@@ -271,6 +271,7 @@ public class UIController : MonoBehaviour
     private void SceneLoaded(Scene scene, LoadSceneMode mode) 
     {
         Time.timeScale = 1;
+
         m_artifactsCollected = 0;
         m_artifactsText.text = $"{m_artifactsCollected} / 4 COLLECTED";
 
@@ -282,9 +283,10 @@ public class UIController : MonoBehaviour
             }
             m_artifactDisplays.Clear();
         }
-
         if (scene.name == "MenuScene") 
         {
+            TogglePanel(UIPanelType.Win, false);
+            TogglePanel(UIPanelType.Lose, false);
             TogglePanel(UIPanelType.HUD, false);
             TogglePanel(UIPanelType.Pause, false);
             TogglePanel(UIPanelType.Credits, false);
@@ -371,6 +373,7 @@ public class UIController : MonoBehaviour
     public void GameEnded(bool won) 
     {
         Time.timeScale = 0;
+
         m_sfxSlider.value = 0f;
 
         TogglePanel(UIPanelType.HUD, false);

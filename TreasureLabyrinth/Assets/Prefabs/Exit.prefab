@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8472202602753721312}
   - component: {fileID: 30420112478436369}
   - component: {fileID: 5680723157376929501}
+  - component: {fileID: 71578629838411663}
   m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   artifactsHeld: 0
+  unlock: {fileID: 0}
 --- !u!212 &5680723157376929501
 SpriteRenderer:
   serializedVersion: 2
@@ -105,3 +107,16 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &71578629838411663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8709671499254721854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac488d4a6989d4e4182e46c4db669a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Discoverable
+  type: 3

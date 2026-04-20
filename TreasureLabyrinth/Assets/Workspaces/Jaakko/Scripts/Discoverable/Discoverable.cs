@@ -3,7 +3,8 @@ public enum DiscoverableType
 {
     Artifact,
     Enemy,
-    Player
+    Player,
+    Exit
 }
 public class Discoverable : MonoBehaviour
 {

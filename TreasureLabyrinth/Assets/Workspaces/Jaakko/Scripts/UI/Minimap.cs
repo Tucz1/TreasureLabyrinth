@@ -11,6 +11,7 @@ public class Minimap : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject m_atrifactIcon;
     [SerializeField] private GameObject m_enemyIcon;
+    [SerializeField] private GameObject m_exitIcon;
 
     [SerializeField] private Material minimapMaterial;
 
@@ -102,6 +103,24 @@ public class Minimap : MonoBehaviour
             m_artifacts.Add(g);
             m_discoverableMap[artifact] = g;
             m_discoverables.Add(artifact);
+        }
+
+        List<Discoverable> exits = DiscoverableManager
+            .GetDiscoverablesOfType(DiscoverableType.Exit);
+
+        if (exits == null || exits.Count == 0) 
+        {
+            Debug.LogWarning("Exits NULL");
+            return;
+        }
+        foreach (var e in exits) 
+        {
+            GameObject g = Instantiate(m_exitIcon, m_mapImage.transform);
+            RectTransform rt = g.GetComponent<RectTransform>();
+            rt.anchoredPosition = GetUIPos(e.transform.position);
+
+            m_discoverableMap[e] = g;
+            m_discoverables.Add(e);            
         }
     }
     private void EnemySpawned(Discoverable enemy) 

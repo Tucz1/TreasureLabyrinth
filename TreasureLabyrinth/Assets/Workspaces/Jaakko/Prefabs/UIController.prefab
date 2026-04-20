@@ -2198,6 +2198,7 @@ MonoBehaviour:
   playerIcon: {fileID: 6564150448850814588}
   m_atrifactIcon: {fileID: 817946439598046922, guid: de4b2c7cf0275844181aca8cfb4d9071, type: 3}
   m_enemyIcon: {fileID: 817946439598046922, guid: 2ab6b49a9aa1ff94eb157c58e68a1f53, type: 3}
+  m_exitIcon: {fileID: 817946439598046922, guid: cd681ae6e69104b4b9a9cc699f5d91c5, type: 3}
   minimapMaterial: {fileID: 2100000, guid: 3aa5fad79b14472429804bcd14b91f65, type: 2}
   m_pulseRadius: 0.2
   m_pulseDuration: 2
@@ -2464,7 +2465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4626058311585093245
 RectTransform:
   m_ObjectHideFlags: 0
