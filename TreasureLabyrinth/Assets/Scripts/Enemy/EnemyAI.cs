@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [DefaultExecutionOrder (100)]
@@ -18,7 +17,14 @@ public class EnemyAI : MonoBehaviour {
     bool patrollingToLPos = false;
     public float movespeed = 6f;
     float timer = 0f;
-    float tick = 1f;
+    float alertTime = 3f;
+    bool alert = false;
+
+    [SerializeField] float visionRange = 90f;
+    [SerializeField] float visionAngle = 30f;
+    [SerializeField] float rotationSpeed = 70f;
+    [SerializeField] bool visiblePlayers = false;
+    [SerializeField] LayerMask visionBlockersMask;
 
     public List<Vector2Int> patrolPointList;
 
@@ -42,7 +48,50 @@ public class EnemyAI : MonoBehaviour {
         StartCoroutine(think());
     }
 
-    private void chasePlayer() {
+    private void visionCone() {
+        Vector3 pos = player.transform.position;
+        float dist = Vector3.Distance(transform.position, pos);
+        var delta = pos - transform.position;
+        float angle = Vector3.Angle(transform.forward, delta);
+
+        if (Physics.Raycast(transform.position,
+                                delta,
+                                out RaycastHit hitInfo,
+                                delta.magnitude,
+                                visionBlockersMask)) {
+            Debug.Log("We don't see the player nay");
+            Debug.DrawLine(transform.position, hitInfo.point, Color.red);
+            playerVisible = false;
+        } else {
+            Debug.Log("We see the player yay");
+            Debug.DrawLine(transform.position, pos, Color.white);
+            playerVisible = true;
+        }
+        }
+
+    private void Update() {
+        visionCone();
+
+        var clockwise = Quaternion.Euler(0, 0, visionAngle);
+        var counterClockwise = Quaternion.Euler(0, 0, -visionAngle);
+        var longForward = transform.forward * visionRange;
+        var left = counterClockwise * longForward;
+        var right = clockwise * longForward;
+        var p = transform.position;
+        Debug.DrawLine(p, p + left);
+        Debug.DrawLine(p, p + right);
+
+        //if (playerVisible) {
+        //    timer = 0;
+        //    playerAlert();
+
+        //} else {
+        //    timer += Time.deltaTime;
+        //    if(timer >= alertTime) {
+        //        // Return to patrol
+        //    }
+        //}
+        
     }
 
     private Vector2Int generateGoalPos(Vector2Int ?goalPosInfo) {
@@ -86,32 +135,31 @@ public class EnemyAI : MonoBehaviour {
         return goalPos;
     }
 
-    IEnumerator Move() {
-        if (path == null) {
-            Debug.Log("No Path");
-            yield return null;
-        }
 
-        foreach (var n in path) {
-            StartCoroutine(MoveStep(n));
-        }
-        yield return null;
-    }
     IEnumerator MoveStep(Vector2Int target) {
+        var newDir = (Vector3)(Vector2)target - transform.position;
+        var targetRot = Quaternion.LookRotation(newDir, Vector3.forward);
         var analogTarget = (Vector3)(Vector2)target;
+        //transform.rotation = targetRot;
         while (transform.position != analogTarget) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
             transform.position = Vector2.MoveTowards(
-            transform.position,
-            analogTarget,
-            movespeed * Time.deltaTime);
+                transform.position,
+                analogTarget,
+                movespeed * Time.deltaTime);
             yield return null;
         }
         enemyCurrentGridPos = target;
     }
     IEnumerator think() {
         while (true) {
+            //if (currentState == EnemyState.alert) {
+            //    path.Clear();
+            //    var destination = generateGoalPos(goalPos);
+            //    path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
+            //}
             if (path == null || path.Count == 0) {
-                stateCheck();
+                newState();
                 var destination = generateGoalPos(goalPos);
                 path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
                 print("made new path");
@@ -121,7 +169,14 @@ public class EnemyAI : MonoBehaviour {
             yield return MoveStep(next);
         }
     }
-
+    
+    private void playerAlert() {
+        StopAllCoroutines();
+        path.Clear();
+        patrollingToLPos = false;
+        currentState = EnemyState.alert;
+        StartCoroutine(think());
+    }
     public void artifactPickedUp() {
         StopAllCoroutines();
         path.Clear();
@@ -129,7 +184,7 @@ public class EnemyAI : MonoBehaviour {
         currentState = EnemyState.patrollingToPoint;
         StartCoroutine(think());
     }
-    private void stateCheck() {
+    private void newState() {
         var prevState = currentState;
         switch (prevState) {
             case EnemyState.patrollingToPoint:
