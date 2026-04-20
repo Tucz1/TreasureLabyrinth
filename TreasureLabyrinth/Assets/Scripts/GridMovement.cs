@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GridMovement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GridMovement : MonoBehaviour
     EnemyAI enemy;
     public AudioClip whatToPlay;
     AudioSource myAudio;
+    public UnityEvent footstepEvent;
 
     void Awake()
     {
@@ -80,6 +82,7 @@ public class GridMovement : MonoBehaviour
         isMoving = true;
 
         Vector3 targetWorldPos = new Vector3(targetGridPos.x, targetGridPos.y, 0f);
+        footstepEvent.Invoke();
 
         while (Vector3.Distance(transform.position, targetWorldPos) > 0.01f)
         {

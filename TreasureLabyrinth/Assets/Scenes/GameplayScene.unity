@@ -928,6 +928,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1906919338989180596, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906919338989180596, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
@@ -980,16 +984,62 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7555779081943772501, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+    - {fileID: 6482363270767929921, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+    - {fileID: 6482363270369305398, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+    - {fileID: 7032590521865492394, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+    - {fileID: 1089538240, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+    - {fileID: 6988114270335921317, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+    - {fileID: 4931862546254981727, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3419069941596650003, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
       insertIndex: -1
       addedObject: {fileID: 200780901}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7819543910757953205, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1035596826}
   m_SourcePrefab: {fileID: 100100000, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
 --- !u!4 &1035596824 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3419069941596650003, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+  m_PrefabInstance: {fileID: 1035596823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1035596825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7819543910757953205, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
+  m_PrefabInstance: {fileID: 1035596823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1035596826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035596825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e8b63b904ebca4fbc3ce0bf51dfbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayRandomizedClip
+  source: {fileID: 1035596828}
+  modifier: 0
+  clips0:
+  - {fileID: 8300000, guid: 51008a39b816fec43aa8897ea6f41c56, type: 3}
+  clips1:
+  - {fileID: 8300000, guid: e72da4448ceef5e46a96a45577ff8b3c, type: 3}
+  clips2:
+  - {fileID: 8300000, guid: 8d805abe4cfb7b64f967fef6e11769f6, type: 3}
+  clips3:
+  - {fileID: 8300000, guid: bc1239be43f5d5840bf4374972b598a9, type: 3}
+  clips4:
+  - {fileID: 8300000, guid: 31be759ee4823f444ac2f47f6f127fbf, type: 3}
+  clips5:
+  - {fileID: 8300000, guid: db340f524e277c74fab92900910afd81, type: 3}
+--- !u!82 &1035596828 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1906919338989180596, guid: 89c804bf7b52bce4d892767d05183a48, type: 3}
   m_PrefabInstance: {fileID: 1035596823}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047568367
@@ -1137,6 +1187,21 @@ MonoBehaviour:
   moveSpeed: 6
   currentGridPos: {x: 0, y: 0}
   whatToPlay: {fileID: 8300000, guid: 5681af852f0456545ab7c747188f9545, type: 3}
+  footstepEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1035596826}
+        m_TargetAssemblyTypeName: PlayRandomizedClip, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &1524365426
 SphereCollider:
   m_ObjectHideFlags: 0
