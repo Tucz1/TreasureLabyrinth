@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum UIPanelType 
 {
     Pause,
-    HUD
+    HUD,
+    Menu
 }
 public class UINavigation 
 {
@@ -95,6 +95,8 @@ public class UIController : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button m_resumeButton;
     [SerializeField] private Button m_quitButton;
+    [SerializeField] private Button m_mainStart;
+    [SerializeField] private Button m_mainQuit;
     [Header("Prefabs")]
     [SerializeField] private ArtifactDisplay m_artifactDisplayPrefab;
     
@@ -103,6 +105,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private GameObject m_pausePanel;
     [SerializeField] private GameObject m_gamePanel;
+    [SerializeField] private GameObject m_menuPanel;
 
     public static UIController I { get; private set; }
 
@@ -141,9 +144,21 @@ public class UIController : MonoBehaviour
                 m_gamePanel.SetActive(value);
                 nav.UpdateSelectables(null);
                 break;
+            case UIPanelType.Menu:
+                m_menuPanel.SetActive(value);
+                if (value) 
+                {
+                    var selectables = new List<Selectable>();
+
+                    selectables.Add(m_mainStart);
+                    selectables.Add(m_mainQuit);
+
+                    nav.UpdateSelectables(selectables);
+                }                
+                break;
         }
     }
-
+    private Canvas m_canvas;
     private void Awake()
     {
         if (I != null) 
@@ -154,6 +169,7 @@ public class UIController : MonoBehaviour
         I = this;
         DontDestroyOnLoad(this);
 
+        m_canvas = GetComponentInChildren<Canvas>();        
         nav = new UINavigation();
         m_minimap = GetComponent<Minimap>();
 
@@ -170,11 +186,41 @@ public class UIController : MonoBehaviour
         });
         m_quitButton.onClick.AddListener(() =>
         {
-            Debug.Log("QUIT BUTTON CLICKED");
+            SceneManager.LoadScene("MenuScene");
+        });
+        m_mainStart.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("GameplayScene");
+        });
+        m_mainQuit.onClick.AddListener(() =>
+        {
+            Application.Quit();
         });
         TogglePanel(UIPanelType.Pause, false);
 
+
+
         UIEvents.OnArtifactAdded += ArtifactAdded;
+        SceneManager.sceneLoaded += SceneLoaded;
+    }
+    private void SceneLoaded(Scene scene, LoadSceneMode mode) 
+    {
+        Time.timeScale = 1;
+
+        if (scene.name == "MenuScene") 
+        {
+            TogglePanel(UIPanelType.HUD, false);
+            TogglePanel(UIPanelType.Pause, false);
+            TogglePanel(UIPanelType.Menu, true);
+        }
+        else 
+        {
+            TogglePanel(UIPanelType.Menu, false);
+            TogglePanel(UIPanelType.Pause, false);
+            TogglePanel(UIPanelType.HUD, true);
+        }
+
+        m_canvas.worldCamera = Camera.main;
     }
     private void OnDestroy()
     {
@@ -230,6 +276,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject m_losePanel;
     public void GameEnded(bool won) 
     {
+        Time.timeScale = 0;
+
         if (won) 
         {
             m_winPanel.SetActive(true);
