@@ -127,6 +127,8 @@ public class UIController : MonoBehaviour
         {
             case UIPanelType.Pause:
                 m_pausePanel.SetActive(value);
+                m_pauseActive = value;
+
                 if (value) 
                 {                    
                     var selectables = new List<Selectable>();
@@ -136,9 +138,6 @@ public class UIController : MonoBehaviour
                     selectables.Add(m_quitButton);
                     selectables.Add(m_resumeButton);
                     
-                    
-                    
-
                     nav.UpdateSelectables(selectables);
                     Time.timeScale = 0;
                 }
@@ -276,14 +275,15 @@ public class UIController : MonoBehaviour
         InputEvents.OnUIInputAction -= UIInput;
 
         UIEvents.OnArtifactAdded -= ArtifactAdded;
-    }  
+    }
+    private bool m_pauseActive;
     private void UIInput(UIInputAction action) 
     {
         switch (action) 
         {
             case UIInputAction.Pause:
                 TogglePanel(UIPanelType.HUD, false);
-                TogglePanel(UIPanelType.Pause, true);
+                TogglePanel(UIPanelType.Pause, !m_pauseActive);
                 break;
             case UIInputAction.NavUp:
                 nav.Navigate(UINavigation.NavigationDirection.Up);

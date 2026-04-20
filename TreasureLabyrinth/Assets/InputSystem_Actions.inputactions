@@ -698,6 +698,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a25d6e66-adba-4d15-a491-a88874adc692",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6fc059af-59b7-4c65-837b-cf83bb7a9755",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
