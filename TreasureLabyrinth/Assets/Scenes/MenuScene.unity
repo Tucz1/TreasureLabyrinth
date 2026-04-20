@@ -956,6 +956,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIController
       objectReference: {fileID: 0}
+    - target: {fileID: 6611269732186963824, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8592360728921387497, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_enemyIcon
       value: 

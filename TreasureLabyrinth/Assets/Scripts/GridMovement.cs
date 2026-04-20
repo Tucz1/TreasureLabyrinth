@@ -16,6 +16,9 @@ public class GridMovement : MonoBehaviour
     AudioSource myAudio;
     public UnityEvent footstepEvent;
     public AudioClip bugScreech;
+    public AudioClip locked;
+    public AudioClip unLocked;
+    PlayerInventory playerInventory;
 
     void Awake()
     {
@@ -71,6 +74,22 @@ public class GridMovement : MonoBehaviour
                     myAudio.PlayOneShot(bugScreech);
 
                 }
+
+                if (targetNode.tileType == TileType.Exit)
+                {
+                    if (playerInventory == null) playerInventory = FindAnyObjectByType<PlayerInventory>();
+
+                    if (playerInventory.artifactsHeld < 4)
+                    {
+                        myAudio.PlayOneShot(locked);
+                    }
+                    else
+                    {
+                        myAudio.PlayOneShot(unLocked);
+                        UIController.I.GameEnded(true);
+                    }
+                }
+
 
                 currentGridPos = targetGridPos;
                 StartCoroutine(SmoothMove(targetGridPos));
