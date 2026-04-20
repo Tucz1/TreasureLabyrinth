@@ -1074,6 +1074,7 @@ GameObject:
   - component: {fileID: 945907068}
   - component: {fileID: 945907070}
   - component: {fileID: 945907071}
+  - component: {fileID: 945907072}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -1123,6 +1124,7 @@ MonoBehaviour:
   floorTile: {fileID: 7281986721646849317, guid: abd0e9cc958a91f44b680253cfb385bc, type: 3}
   playerSpawnTile: {fileID: 3133553181664091652, guid: 7fa1d318a8b687c4a89f34ab19158d91, type: 3}
   enemySpawnTile: {fileID: 5430596677280578767, guid: 61f5331d70c76544a81078d3fe7e85c8, type: 3}
+  enemyPrefab: {fileID: 8061015437224001346, guid: 41b269fd8fbb13b42ab17a1b1004f89d, type: 3}
   artifactSpawnTile: {fileID: 342276002565328648, guid: c0da3927945c0794caa01d0ab5a84cd5, type: 3}
   exitTileSpawn: {fileID: 8709671499254721854, guid: f79c47fe9260f5948b6939cd6958fe81, type: 3}
   levelVisuals: {fileID: 309619716}
@@ -1172,6 +1174,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
   artifacts: []
   pulsePrefab: {fileID: 3102610834038855938, guid: d1f18fc1c9770934a96128e079d92d3a, type: 3}
+  whatToPlay: {fileID: 0}
+--- !u!114 &945907072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945907067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880d1b3ff9d61c84188b3cd1d4a696d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BFS
+  map: {fileID: 0}
+  start: {x: 0, y: 0}
+  goal: {x: 0, y: 0}
+  cube: {fileID: 0}
 --- !u!1 &1003353594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,6 +1608,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 6
   currentGridPos: {x: 0, y: 0}
+  whatToPlay: {fileID: 0}
+  footstepEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  bugScreech: {fileID: 0}
 --- !u!114 &1733612248
 MonoBehaviour:
   m_ObjectHideFlags: 0
