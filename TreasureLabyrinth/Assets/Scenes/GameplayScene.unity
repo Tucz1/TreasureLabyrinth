@@ -336,7 +336,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1185,6 +1185,7 @@ GameObject:
   - component: {fileID: 1524365425}
   - component: {fileID: 1524365424}
   - component: {fileID: 1524365429}
+  - component: {fileID: 1524365430}
   m_Layer: 0
   m_Name: TempPlayer
   m_TagString: Untagged
@@ -1237,7 +1238,19 @@ MonoBehaviour:
   pickupSFX: {fileID: 0}
   footstepEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1524365430}
+        m_TargetAssemblyTypeName: PlayRandomizedClip, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   bugScreech: {fileID: 0}
 --- !u!135 &1524365426
 SphereCollider:
@@ -1326,11 +1339,11 @@ AudioSource:
   m_GameObject: {fileID: 1524365422}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7091870490449066055, guid: 1790ac882d3a5c54492bcb6277fff43e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1414,6 +1427,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1524365430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524365422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e8b63b904ebca4fbc3ce0bf51dfbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayRandomizedClip
+  source: {fileID: 1524365429}
+  modifier: 0
+  clips0:
+  - {fileID: 8300000, guid: 51008a39b816fec43aa8897ea6f41c56, type: 3}
+  clips1:
+  - {fileID: 8300000, guid: e72da4448ceef5e46a96a45577ff8b3c, type: 3}
+  clips2:
+  - {fileID: 8300000, guid: 8d805abe4cfb7b64f967fef6e11769f6, type: 3}
+  clips3:
+  - {fileID: 8300000, guid: bc1239be43f5d5840bf4374972b598a9, type: 3}
+  clips4:
+  - {fileID: 8300000, guid: 31be759ee4823f444ac2f47f6f127fbf, type: 3}
+  clips5:
+  - {fileID: 8300000, guid: db340f524e277c74fab92900910afd81, type: 3}
 --- !u!1 &1985904212
 GameObject:
   m_ObjectHideFlags: 0
