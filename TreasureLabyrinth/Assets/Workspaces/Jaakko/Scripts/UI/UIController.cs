@@ -26,12 +26,24 @@ public class UIController : MonoBehaviour
     [Header("Anchors")]
     [SerializeField] private Transform m_artifactAnchor;
 
+    [SerializeField] private GameObject m_pausePanel;
+    [SerializeField] private GameObject m_gamePanel;
+
     public static UIController I { get; private set; }
 
     private Minimap m_minimap;
-    public void Toggle(bool value) 
+
+    public void TogglePanel(UIPanelType type, bool value) 
     {
-        gameObject.SetActive(value);
+        switch (type) 
+        {
+            case UIPanelType.Pause:
+                m_pausePanel.SetActive(value);
+                break;
+            case UIPanelType.HUD:
+                m_gamePanel.SetActive(value);
+                break;
+        }
     }
 
     private void Awake()
@@ -60,10 +72,9 @@ public class UIController : MonoBehaviour
 
         m_resumeButton.onClick.AddListener(() =>
         {
-            Toggle(false);
+            TogglePanel(UIPanelType.Pause, false);
         });
-        Toggle(false);
-
+        TogglePanel(UIPanelType.Pause, false);
 
         UIEvents.OnArtifactAdded += ArtifactAdded;
     }
@@ -95,7 +106,7 @@ public class UIController : MonoBehaviour
     {
         if (action == UIInputAction.Pause) 
         {
-            Toggle(true);
+            TogglePanel(UIPanelType.Pause, true);
         }
     }
     private void MapChanged(Texture2D tex) 
