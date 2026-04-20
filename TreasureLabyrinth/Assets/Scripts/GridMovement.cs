@@ -10,12 +10,9 @@ public class GridMovement : MonoBehaviour
     public Vector2Int currentGridPos;
     PositionPlayer positionPlayer;
     public event Action InteractWithArtifact;
-<<<<<<< Updated upstream
     EnemyAI enemy;
-=======
     public AudioClip whatToPlay;
     AudioSource myAudio;
->>>>>>> Stashed changes
 
     void Awake()
     {
@@ -63,15 +60,12 @@ public class GridMovement : MonoBehaviour
                 {
                     targetNode.artifact.Interact();
                     InteractWithArtifact?.Invoke();
-<<<<<<< Updated upstream
 
                     map.spawnEnemy();
                     enemy = FindAnyObjectByType<EnemyAI>();
                     enemy.artifactPickedUp();
-=======
                     myAudio.PlayOneShot(whatToPlay);
 
->>>>>>> Stashed changes
                 }
 
                 currentGridPos = targetGridPos;
