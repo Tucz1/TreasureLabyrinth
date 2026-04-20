@@ -15,6 +15,7 @@ public class GridMovement : MonoBehaviour
     public AudioClip whatToPlay;
     AudioSource myAudio;
     public UnityEvent footstepEvent;
+    public AudioClip bugScreech;
 
     void Awake()
     {
@@ -67,6 +68,7 @@ public class GridMovement : MonoBehaviour
                     enemy = FindAnyObjectByType<EnemyAI>();
                     enemy.artifactPickedUp();
                     myAudio.PlayOneShot(whatToPlay);
+                    myAudio.PlayOneShot(bugScreech);
 
                 }
 
