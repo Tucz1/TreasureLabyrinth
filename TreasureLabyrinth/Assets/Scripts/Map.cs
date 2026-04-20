@@ -105,7 +105,7 @@ public class Map : MonoBehaviour
 
             if (dictonary.Value.tileType == TileType.Wall)
             {
-                Instantiate(wallTile, new Vector3(dictonary.Key.x, dictonary.Key.y, 0), Quaternion.identity, levelVisuals);
+                Instantiate(wallTile, new Vector3(dictonary.Key.x, dictonary.Key.y, -5), wallTile.transform.rotation, levelVisuals);
             }
 
             // if (dictonary.Value.tileType == TileType.Floor)
