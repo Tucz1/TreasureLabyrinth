@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,6 +39,7 @@ public class InputManager : MonoBehaviour
     public InputSystem_Actions Actions => m_actions;
 
     public Transform[] artifacts;
+    public EnemyAI enemy;
     public GameObject pulsePrefab;
     AudioSource myAudio;
     public AudioClip whatToPlay;
@@ -121,6 +123,10 @@ public class InputManager : MonoBehaviour
             InputEvents.InputAction(PlayerInputAction.Pulse);
             myAudio.PlayOneShot(whatToPlay);
 
+            Debug.Log(EnemyAI.AllEnemies.Count);
+            foreach (var enemy in EnemyAI.AllEnemies) {
+                enemy.playerPinged();
+            }
         }
     }
 

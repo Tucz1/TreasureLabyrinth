@@ -366,7 +366,7 @@ MonoBehaviour:
   path: []
   patrolPointList: []
   playerVisible: 0
-  movespeed: 6
+  movespeed: 4
   alert: 0
   visionRange: 10
   visionAngle: 30

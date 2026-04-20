@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour {
     public Vector2Int lastPlayerPos;
     public List<Vector2Int> path;
     public List<Vector2Int> patrolPointList;
+    public static List<EnemyAI> AllEnemies = new List<EnemyAI>();
 
     public bool playerVisible = false;
     bool pinged = false;
@@ -70,13 +71,13 @@ public class EnemyAI : MonoBehaviour {
                                 out RaycastHit hitInfo,
                                 delta.magnitude,
                                 visionBlockersMask)) {
-            Debug.Log("We see the player yay");
+            //Debug.Log("We see the player yay");
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
-            playerVisible = false;
-        } else {
-            Debug.Log("We don't see the player oh no");
-            Debug.DrawLine(transform.position, pos, Color.white);
             playerVisible = true;
+        } else {
+            //Debug.Log("We don't see the player oh no");
+            Debug.DrawLine(transform.position, pos, Color.white);
+            playerVisible = false;
             }
     }
 
@@ -179,6 +180,12 @@ public class EnemyAI : MonoBehaviour {
                     lastPlayerPos = currentPlayerPos;
                 }
             }
+            if (pinged) {
+                var currentPlayerPos = player.currentGridPos;
+                path = map.SearchAndBuildPath(enemyCurrentGridPos, currentPlayerPos);
+                pinged = false;
+                Debug.Log("We got here");
+            }
             if (path == null || path.Count == 0) {
                 newState();
                 var destination = generateGoalPos(goalPos);
@@ -191,11 +198,19 @@ public class EnemyAI : MonoBehaviour {
         }
     }
     
-    private void playerAlert() {
+    public void playerAlert() {
         StopAllCoroutines();
         path.Clear();
         patrollingToLPos = false;
         currentState = EnemyState.alert;
+        StartCoroutine(think());
+    }
+    public void playerPinged() {
+        StopAllCoroutines();
+        path.Clear();
+        patrollingToLPos = false;
+        currentState = EnemyState.pinged;
+        pinged = true;
         StartCoroutine(think());
     }
     public void artifactPickedUp() {
@@ -229,6 +244,13 @@ public class EnemyAI : MonoBehaviour {
                 Debug.Log("We ended up at default state, shouldn't happen.");
                 break;
         }
+    }
+    private void OnEnable() {
+        AllEnemies.Add(this);
+    }
+
+    private void OnDisable() {
+        AllEnemies.Remove(this);
     }
     //IEnumerator MoveStep(Vector2Int target) {
     //    var analogTarget = (Vector3)(Vector2)target;
