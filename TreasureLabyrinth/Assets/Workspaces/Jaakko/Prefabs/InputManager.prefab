@@ -48,6 +48,7 @@ MonoBehaviour:
   artifacts: []
   pulsePrefab: {fileID: 3102610834038855938, guid: d1f18fc1c9770934a96128e079d92d3a, type: 3}
   whatToPlay: {fileID: 8300000, guid: 21616eaea830b1c408f8b876bf4957b1, type: 3}
+  pingVolume: 0.3
 --- !u!82 &5911518010175401446
 AudioSource:
   m_ObjectHideFlags: 0
