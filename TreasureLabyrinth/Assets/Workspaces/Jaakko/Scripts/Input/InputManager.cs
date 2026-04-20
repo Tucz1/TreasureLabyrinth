@@ -74,6 +74,8 @@ public class InputManager : MonoBehaviour
 
             for (int i = 0; i < artifacts.Length; i++)
             {
+                if (pulsePrefab == null) break;
+
                 var pulse = Instantiate(pulsePrefab, artifacts[i]);
                 Destroy(pulse, 4);
                 Debug.Log(artifacts[i]);
