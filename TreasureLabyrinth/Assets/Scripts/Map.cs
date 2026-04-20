@@ -66,12 +66,14 @@ public class Map : MonoBehaviour
 
     public Texture2D testingTex;
 
-    public static event Action<Texture2D> OnMapChanged;
+    public event Action<Texture2D> OnMapChanged;
 
     public List<MapTextureSet> mapTextures;
 
     void Awake()
     {
+        Debug.Log("Map Awake");
+
         mapDataColors = new Dictionary<string, Color32>();
 
         for (int i = 0; i < mapColors.Length; i++)
@@ -84,6 +86,8 @@ public class Map : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Map Start");
+
         RefreshVisuals();
 
         OnMapChanged?.Invoke(mapTextures[0].levelTexture);

@@ -81,7 +81,6 @@ public class InputManager : MonoBehaviour
             InputEvents.UIInputAction(UIInputAction.NavLeft);
         };
         myAudio = GetComponent<AudioSource>();
-
     }
 
     void Update()

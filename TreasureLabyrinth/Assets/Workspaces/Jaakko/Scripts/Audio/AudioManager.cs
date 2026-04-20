@@ -36,10 +36,14 @@ public class AudioManager : MonoBehaviour
     }
     private void MusicVolumeChanged(float value) 
     {
-        m_mainMixer.SetFloat("MusicVolume", value);   
+        float dB = Mathf.Log10(value) * 20;
+        m_mainMixer.SetFloat("MusicVolume", dB);
     }
     private void SfxVolumeChanged(float value) 
     {
-        m_mainMixer.SetFloat("SfxVolume", value);
+        float dB = Mathf.Log10(value) * 20;
+        m_mainMixer.SetFloat("SfxVolume", dB);
+
+
     }
 }

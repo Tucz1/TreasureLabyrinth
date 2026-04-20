@@ -173,8 +173,6 @@ public class UIController : MonoBehaviour
         nav = new UINavigation();
         m_minimap = GetComponent<Minimap>();
 
-        Map.OnMapChanged += MapChanged;
-
         m_musicSlider.onValueChanged.AddListener(UIEvents.MusicVolumeChanged);
         m_sfxSlider.onValueChanged.AddListener(UIEvents.SfxVolumeChanged);
 
@@ -218,7 +216,13 @@ public class UIController : MonoBehaviour
             TogglePanel(UIPanelType.Menu, false);
             TogglePanel(UIPanelType.Pause, false);
             TogglePanel(UIPanelType.HUD, true);
+
+            Map m = FindAnyObjectByType<Map>();
+            if (m)
+                m.OnMapChanged += MapChanged;
         }
+
+        
 
         m_canvas.worldCamera = Camera.main;
     }
@@ -230,7 +234,9 @@ public class UIController : MonoBehaviour
         }
         I = null;
 
-        Map.OnMapChanged -= MapChanged;
+        Map m = FindAnyObjectByType<Map>();
+        if (m)
+            m.OnMapChanged -= MapChanged;
 
         m_musicSlider.onValueChanged.RemoveAllListeners();
         m_sfxSlider.onValueChanged.RemoveAllListeners();
