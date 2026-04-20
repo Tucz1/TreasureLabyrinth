@@ -10,6 +10,7 @@ public class GridMovement : MonoBehaviour
     public Vector2Int currentGridPos;
     PositionPlayer positionPlayer;
     public event Action InteractWithArtifact;
+    EnemyAI enemy;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class GridMovement : MonoBehaviour
     {
         positionPlayer = FindAnyObjectByType<PositionPlayer>();
         currentGridPos = (Vector2Int)Vector3Int.RoundToInt(positionPlayer.transform.position);
+        
     }
 
 
@@ -55,6 +57,10 @@ public class GridMovement : MonoBehaviour
                 {
                     targetNode.artifact.Interact();
                     InteractWithArtifact?.Invoke();
+
+                    map.spawnEnemy();
+                    enemy = FindAnyObjectByType<EnemyAI>();
+                    enemy.artifactPickedUp();
                 }
 
                 currentGridPos = targetGridPos;

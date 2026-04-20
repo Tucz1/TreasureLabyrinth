@@ -111,7 +111,7 @@ public class BFS : MonoBehaviour {
 
 	// Find a start node from the scene. We're assuming there's only one.
 
-	void Start() {
+	void Awake() {
 		map = GetComponent<Map>();
 		//var path = SearchAndBuildPath(start, goal);
 		//if (path == null) {

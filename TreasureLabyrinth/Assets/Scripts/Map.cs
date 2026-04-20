@@ -58,6 +58,7 @@ public class Map : MonoBehaviour
     public GameObject floorTile;
     public GameObject playerSpawnTile;
     public GameObject enemySpawnTile;
+    public GameObject enemyPrefab;
     public GameObject artifactSpawnTile;
     public GameObject exitTileSpawn;
     public Transform levelVisuals;
@@ -85,6 +86,12 @@ public class Map : MonoBehaviour
         RefreshVisuals();
 
         OnMapChanged?.Invoke(mapTextures[0].levelTexture);
+    }
+
+    public void spawnEnemy() {
+        var enemySpawnTile = FindAnyObjectByType<EnemySpawner>();
+        var enemySpawnTilePos = enemySpawnTile.transform;
+        Instantiate(enemyPrefab,enemySpawnTilePos.position, Quaternion.identity);
     }
 
     public void RefreshVisuals()

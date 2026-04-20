@@ -16,13 +16,13 @@ public class EnemyAI : MonoBehaviour {
     bool playerVisible = false;
     bool pinged = false;
     bool patrollingToLPos = false;
-    float movespeed = 1f;
+    public float movespeed = 6f;
     float timer = 0f;
     float tick = 1f;
 
     public List<Vector2Int> patrolPointList;
 
-    public GridMovement player;
+    [SerializeField] GridMovement player;
     //Vector2Int playerPos;
     [SerializeField] private EnemyState currentState;
     private enum EnemyState {
@@ -31,11 +31,15 @@ public class EnemyAI : MonoBehaviour {
         pinged,
         alert
     }
-    private void Start() {
-
-        transform.position = new Vector3(enemyCurrentGridPos.x, enemyCurrentGridPos.y, 0);
-        StartCoroutine(think());
+    private void Awake() {
+        player = FindAnyObjectByType<GridMovement>();
+        map = FindAnyObjectByType<BFS>();
+        if (player == null) Debug.Log("Player is null");
+        int tPosX = (int)transform.position.x;
+        int tPosY = (int)transform.position.y;
+        enemyCurrentGridPos = new Vector2Int(tPosX, tPosY);
         currentState = EnemyState.patrollingToPoint;
+        StartCoroutine(think());
     }
 
     private void chasePlayer() {
@@ -49,6 +53,7 @@ public class EnemyAI : MonoBehaviour {
 
         //PREV POSITION AS GOAL
         if (currentState == EnemyState.patrollingToPlayer) {
+            if (player == null) Debug.Log("Player is null, patrolstate");
         var lastPos = new Vector2Int(player.currentGridPos.x, player.currentGridPos.y);
             if (patrollingToLPos) {
                 goalPos = (Vector2Int)goalPosInfo;
@@ -106,7 +111,7 @@ public class EnemyAI : MonoBehaviour {
     IEnumerator think() {
         while (true) {
             if (path == null || path.Count == 0) {
-                StartCoroutine(stateCheck());
+                stateCheck();
                 var destination = generateGoalPos(goalPos);
                 path = map.SearchAndBuildPath(enemyCurrentGridPos, destination);
                 print("made new path");
@@ -116,7 +121,15 @@ public class EnemyAI : MonoBehaviour {
             yield return MoveStep(next);
         }
     }
-    IEnumerator stateCheck() {
+
+    public void artifactPickedUp() {
+        StopAllCoroutines();
+        path.Clear();
+        patrollingToLPos = false;
+        currentState = EnemyState.patrollingToPoint;
+        StartCoroutine(think());
+    }
+    private void stateCheck() {
         var prevState = currentState;
         switch (prevState) {
             case EnemyState.patrollingToPoint:
@@ -140,13 +153,6 @@ public class EnemyAI : MonoBehaviour {
                 Debug.Log("We ended up at default state, shouldn't happen.");
                 break;
         }
-        //if (currentState == EnemyState.alert) {
-        //    //Can we still see the player? if not return to patrol
-        //}
-        //if (prevState == EnemyState.pinged) currentState = EnemyState.patrollingToPlayer;
-        //if (prevState == EnemyState.patrollingToPoint) currentState = EnemyState.patrollingToPlayer;
-        //if (prevState == EnemyState.patrollingToPlayer) currentState = EnemyState.patrollingToPoint;
-        yield return currentState;
     }
     //IEnumerator MoveStep(Vector2Int target) {
     //    var analogTarget = (Vector3)(Vector2)target;
