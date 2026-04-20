@@ -14,5 +14,6 @@ public class PlayerInventory : MonoBehaviour
     void AddArtifact()
     {
         artifactsHeld++;
+        Debug.Log($"Artifacts held: {artifactsHeld}");
     }
 }
