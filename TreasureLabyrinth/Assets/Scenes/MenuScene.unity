@@ -1010,26 +1010,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5957087294201172790, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_text
-      value: 'LEAD PROGRAMMER - NICOLAS PIIRAINEN
+      value: 'GAMEPLAY PROGRAMMER - NICOLAS PIIRAINEN
 
-        ENEMY PROGRAMMER - MIKKO
-        MAKELA
+        GAMEPLAY PROGRAMMER
+        - MIKKO MAKELA
 
         UI  PROGRAMMER - JAAKKO MANSIKKA
 
-        ILLUSTRATOR - ELMERI
-        KIVINEN
+        ILLUSTRATOR
+        - ELMERI KIVINEN
 
         ARTIST - VEETI  LIPIAINEN
 
-        AUDIO - LUUKAS MAKELA
+        AUDIO - LUUKAS
+        MAKELA
 
-        MUSIC
-        - JESSE KONTTINEN'
+        MUSIC - JESSE KONTTINEN
+
+        PROGRAMMING MENTOR - YRJO
+        PEUSSA'
       objectReference: {fileID: 0}
     - target: {fileID: 5957087294201172790, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_fontSize
-      value: 121.15
+      value: 108
       objectReference: {fileID: 0}
     - target: {fileID: 5957087294201172790, guid: 5e2ec56411ed6a640802d034399501de, type: 3}
       propertyPath: m_HorizontalAlignment
